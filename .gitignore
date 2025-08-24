@@ -1,0 +1,15 @@
+# Generated Quartus folders
+db/
+incremental_db/
+output_files/
+simulation/
+
+.qsys_edit/
+
+# Generated VS Code files
+other/hexgen/.vscode/
+
+# Quartus backup/user setting files
+*.qws
+*.bak
+*.rpt
