@@ -77,7 +77,6 @@ module control_unit (
         ctrl_signals.rd_sel = RD_SEL_MEM;
         ctrl_signals.rd_we = 1'b1;
         ctrl_signals.mem_we = 1'b0;
-        ctrl_signals.mem_re = 1'b1;
         instr_type = INSTR_I_TYPE;
         
         eraise = 1'b0;
@@ -94,7 +93,6 @@ module control_unit (
         ctrl_signals.rd_sel = RD_SEL_ALU;
         ctrl_signals.rd_we = 1'b0;
         ctrl_signals.mem_we = 1'b1;
-        ctrl_signals.mem_re = 1'b0;
         instr_type = INSTR_S_TYPE;
         
         eraise = 1'b0;
@@ -111,7 +109,6 @@ module control_unit (
         ctrl_signals.rd_sel = RD_SEL_ALU;
         ctrl_signals.rd_we = 1'b1;
         ctrl_signals.mem_we = 1'b0;
-        ctrl_signals.mem_re = 1'b0;
         instr_type = INSTR_I_TYPE;
         
         eraise = 1'b0;
@@ -128,7 +125,6 @@ module control_unit (
         ctrl_signals.rd_sel = RD_SEL_ALU;
         ctrl_signals.rd_we = 1'b1;
         ctrl_signals.mem_we = 1'b0;
-        ctrl_signals.mem_re = 1'b0;
         instr_type = INSTR_R_TYPE;
         
         eraise = 1'b0;
@@ -145,7 +141,6 @@ module control_unit (
         ctrl_signals.rd_sel = RD_SEL_ALU;
         ctrl_signals.rd_we = 1'b1;
         ctrl_signals.mem_we = 1'b0;
-        ctrl_signals.mem_re = 1'b0;
         instr_type = INSTR_U_TYPE;
         
         eraise = 1'b0;
@@ -162,7 +157,6 @@ module control_unit (
         ctrl_signals.rd_sel = RD_SEL_IMM;
         ctrl_signals.rd_we = 1'b1;
         ctrl_signals.mem_we = 1'b0;
-        ctrl_signals.mem_re = 1'b0;
         instr_type = INSTR_U_TYPE;
         
         eraise = 1'b0;
@@ -179,7 +173,6 @@ module control_unit (
         ctrl_signals.rd_sel = RD_SEL_ALU;
         ctrl_signals.rd_we = 1'b0;
         ctrl_signals.mem_we = 1'b0;
-        ctrl_signals.mem_re = 1'b0;
         instr_type = INSTR_B_TYPE;
         
         eraise = 1'b0;
@@ -196,7 +189,6 @@ module control_unit (
         ctrl_signals.rd_sel = RD_SEL_PC;
         ctrl_signals.rd_we = 1'b1;
         ctrl_signals.mem_we = 1'b0;
-        ctrl_signals.mem_re = 1'b0;
         instr_type = INSTR_I_TYPE;
         
         eraise = 1'b0;
@@ -213,7 +205,6 @@ module control_unit (
         ctrl_signals.rd_sel = RD_SEL_PC;
         ctrl_signals.rd_we = 1'b1;
         ctrl_signals.mem_we = 1'b0;
-        ctrl_signals.mem_re = 1'b0;
         instr_type = INSTR_J_TYPE;
         
         eraise = 1'b0;

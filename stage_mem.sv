@@ -13,7 +13,6 @@ module stage_mem (
   ram ram_inst (
     .clk(clk),
     .we(ex_mem.ctrl_signals.mem_we),
-    .re(ex_mem.ctrl_signals.mem_re),
     .addr(ex_mem.alu_q),
     .data_in(data_in),
     .data_out(data_out)

@@ -111,7 +111,7 @@ package common_pkg;
     load_op_t load_op;
     rd_sel_t rd_sel;
     logic rd_we;
-    logic mem_we, mem_re;
+    logic mem_we;
   } ctrl_signals_t;
   
   //if to id stage

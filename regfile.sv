@@ -6,14 +6,10 @@ module regfile (
   input logic [XLEN-1:0] rd_data,
   input logic rd_we,
   
-  output logic [XLEN-1:0] rs1_data, rs2_data,
-  
-  output logic [XLEN-1:0] regs_TEST [0:31]  //TEMP
+  output logic [XLEN-1:0] rs1_data, rs2_data
 );
   
   logic [XLEN-1:0] regs [0:31];
-  
-  assign regs_TEST = regs; //TEMP
   
   assign rs1_data = (rs1_addr == 5'd0) ? 'd0 : regs[rs1_addr];
   assign rs2_data = (rs2_addr == 5'd0) ? 'd0 : regs[rs2_addr];
