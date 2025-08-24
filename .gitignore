@@ -13,3 +13,6 @@ other/hexgen/.vscode/
 *.qws
 *.bak
 *.rpt
+
+# Other files
+compush.bat
