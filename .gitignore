@@ -13,6 +13,8 @@ other/hexgen/.vscode/
 *.qws
 *.bak
 *.rpt
+*.o
 
 # Other files
 compush.bat
+c5_pin_model_dump.txt

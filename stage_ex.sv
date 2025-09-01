@@ -105,6 +105,7 @@ module stage_ex (
     if (rst) begin
       flags <= '0;
       ex_mem <= '0;
+      pc_redirect <= '0;
     end else begin
       unique case (stall_mem_type)
         STALL_FREEZE: begin

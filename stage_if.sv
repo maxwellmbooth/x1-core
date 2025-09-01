@@ -8,7 +8,7 @@ module stage_if (
   
   output flags_t flags,
   output if_id_t if_id,
-  output pc_out
+  output logic [XLEN-1:0] pc_out
 );
   
   logic pc_we;
@@ -29,7 +29,7 @@ module stage_if (
   
   rom rom_inst (
     .clk(clk),
-    .addr(pc[7:0]),
+    .addr(pc[9:2]),
     .data(instr)
   );
 

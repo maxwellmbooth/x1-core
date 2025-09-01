@@ -2,7 +2,7 @@
 ## Features:
 - Full RV32I implementation
 ## To-do:
-- Implement stall types for all stages
+- Forward RD values
 - Stalling on exception/syscall
 - Add MC extensions
 ## Other information
