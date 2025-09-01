@@ -2,10 +2,12 @@ import common_pkg::*;
 
 module stage_id (
   input logic clk, rst,
+  input stall_type_t stall_ex_type,
   input if_id_t if_id,
   input logic [XLEN-1:0] rs1_data, rs2_data,
   
   output logic [4:0] rs1_addr, rs2_addr,
+  output flags_t flags,
   output id_ex_t id_ex
 );
 
@@ -41,18 +43,41 @@ module stage_id (
     .illegal(illegal)
   );
   
+  always_comb begin
+    if ((id_ex.ctrl_signals.load_op != LOAD_INVALID) && ((rs1_addr == id_ex.rd_addr) || rs2_addr == id_ex.rd_addr)) begin
+      flags.load_use_hazard = 1'b1;
+    end else begin
+      flags = '0;
+    end
+  end
+  
   always_ff @(posedge clk or posedge rst) begin
     if (rst) begin
       id_ex <= '0;
     end else begin
-      id_ex.instr <= if_id.instr;
-      id_ex.pc <= if_id.pc;
-      id_ex.ctrl_signals <= ctrl_signals;
-      id_ex.rs1_data <= rs1_data;
-      id_ex.rs2_data <= rs2_data;
-      id_ex.rd_addr <= if_id.instr[11:7];
-      id_ex.shamt <= rs2_addr;
-      id_ex.imm <= imm_gen(if_id.instr, instr_type);
+      unique case (stall_ex_type)
+        STALL_FREEZE: begin
+          id_ex <= id_ex;
+        end
+        STALL_NOP: begin
+          id_ex <= NOP_ID_EX;
+        end
+        STALL_FLUSH: begin
+          id_ex <= '0;
+        end
+        STALL_NONE: begin
+          id_ex.instr <= if_id.instr;
+          id_ex.pc <= if_id.pc;
+          id_ex.ctrl_signals <= ctrl_signals;
+          id_ex.rs1_addr <= rs1_addr;
+          id_ex.rs2_addr <= rs2_addr;
+          id_ex.rs1_data <= rs1_data;
+          id_ex.rs2_data <= rs2_data;
+          id_ex.rd_addr <= if_id.instr[11:7];
+          id_ex.shamt <= if_id.instr[24:20];
+          id_ex.imm <= imm_gen(if_id.instr, instr_type);
+        end
+      endcase
     end
   end
   

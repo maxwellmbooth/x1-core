@@ -2,5 +2,9 @@
 ## Features:
 - Full RV32I implementation
 ## To-do:
-- Add RAW hazard forwarding
+- Implement stall types for all stages
 - Stalling on exception/syscall
+- Add MC extensions
+## Other information
+### NOP
+NOP is implemented as `addi x0, x0, 0` (hex `0x00000013`)

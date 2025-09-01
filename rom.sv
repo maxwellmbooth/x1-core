@@ -17,7 +17,7 @@ module rom (
   end
   
   always_ff @(posedge clk) begin
-    data = mem[addr];
+    data <= mem[addr];
   end
 
 endmodule

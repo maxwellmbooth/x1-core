@@ -18,11 +18,7 @@ module program_counter (
     if (rst) begin
       pc <= PC_RESET;
     end else if (pc_we) begin
-      if (pc_redirect.valid) begin
-        pc <= pc_redirect.target;
-      end else begin
-        pc <= pc_next;
-      end
+      pc <= pc_redirect.valid ? pc_redirect.target : pc_next;
     end
   end
   
