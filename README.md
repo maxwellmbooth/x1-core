@@ -2,7 +2,6 @@
 ## Features:
 - Full RV32I implementation
 ## To-do:
-- Forward RD values
 - Stalling on exception/syscall
 - Add MC extensions
 ## Other information

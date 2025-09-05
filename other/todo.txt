@@ -1,5 +1,3 @@
-write forwarding on regfile
-
 //ADDI x1, x0, 1
 bin 00000000000100000000000010010011
 hex 00100093

@@ -124,7 +124,7 @@ module stage_ex (
           ex_mem.instr <= id_ex.instr;
           ex_mem.pc <= id_ex.pc;
           ex_mem.ctrl_signals <= id_ex.ctrl_signals;
-          ex_mem.rs2_data <= id_ex.rs2_data;
+          ex_mem.rs2_data <= rs2_data;
           ex_mem.rd_addr <= id_ex.rd_addr;
           ex_mem.imm <= id_ex.imm;
           ex_mem.alu_q <= alu_q;

@@ -35,16 +35,16 @@ module stage_mem (
     // RD data selection for forwarding and stall
     unique case (ex_mem.ctrl_signals.rd_sel)
       RD_SEL_ALU: begin
-        rd_data_fwd = mem_wb.alu_q;
+        rd_data_fwd = ex_mem.alu_q;
       end
       RD_SEL_IMM: begin
-        rd_data_fwd = mem_wb.imm;
+        rd_data_fwd = ex_mem.imm;
       end
       RD_SEL_MEM: begin
         rd_data_fwd = 31'd0;
       end
       RD_SEL_PC: begin 
-        rd_data_fwd = mem_wb.pc;
+        rd_data_fwd = ex_mem.pc;
       end
     endcase
     
