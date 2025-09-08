@@ -2,7 +2,7 @@ import common_pkg::*;
 
 module stage_ex (
   input logic clk, rst,
-  input stall_type_t stall_mem_type,
+  input ctrl_ex_t ctrl_ex,
   input logic [4:0] rd_addr_mem_fwd, rd_addr_wb_fwd,
   input logic [XLEN-1:0] rd_data_mem_fwd, rd_data_wb_fwd,
   input id_ex_t id_ex,
@@ -60,42 +60,42 @@ module stage_ex (
       end
       
       BEQ: begin
-        pc_redirect_next.valid = alu_eq;
+        pc_redirect_next.valid = alu_eq && id_ex.valid;
         pc_redirect_next.target = id_ex.pc + id_ex.imm;
       end
       
       BNE: begin
-        pc_redirect_next.valid = !alu_eq;
+        pc_redirect_next.valid = !alu_eq && id_ex.valid;
         pc_redirect_next.target = id_ex.pc + id_ex.imm;
       end
       
       BLT: begin
-        pc_redirect_next.valid = alu_lt;
+        pc_redirect_next.valid = alu_lt && id_ex.valid;
         pc_redirect_next.target = id_ex.pc + id_ex.imm;
       end
       
       BGE: begin
-        pc_redirect_next.valid = !alu_lt;
+        pc_redirect_next.valid = !alu_lt && id_ex.valid;
         pc_redirect_next.target = id_ex.pc + id_ex.imm;
       end
       
       BLTU: begin
-        pc_redirect_next.valid = alu_ltu;
+        pc_redirect_next.valid = alu_ltu && id_ex.valid;
         pc_redirect_next.target = id_ex.pc + id_ex.imm;
       end
       
       BGEU: begin
-        pc_redirect_next.valid = !alu_ltu;
+        pc_redirect_next.valid = !alu_ltu && id_ex.valid;
         pc_redirect_next.target = id_ex.pc + id_ex.imm;
       end
       
       JAL: begin
-        pc_redirect_next.valid = 1'b1;
+        pc_redirect_next.valid = id_ex.valid;
         pc_redirect_next.target = alu_q;
       end
       
       JALR: begin
-        pc_redirect_next.valid = 1'b1;
+        pc_redirect_next.valid = id_ex.valid;
         pc_redirect_next.target = alu_q;
       end
     endcase
@@ -106,31 +106,18 @@ module stage_ex (
       flags <= '0;
       ex_mem <= '0;
       pc_redirect <= '0;
+    end else if (ctrl_ex.flush_mem) begin
+      ex_mem.valid <= 1'b0;
     end else begin
-      unique case (stall_mem_type)
-        STALL_FREEZE: begin
-          ex_mem <= ex_mem;
-          pc_redirect <= pc_redirect;
-        end
-        STALL_NOP: begin
-          ex_mem <= ex_mem; //CHANGE
-          pc_redirect <= pc_redirect;
-        end
-        STALL_FLUSH: begin
-          ex_mem <= '0;
-          pc_redirect <= '0;
-        end
-        STALL_NONE: begin
-          ex_mem.instr <= id_ex.instr;
-          ex_mem.pc <= id_ex.pc;
-          ex_mem.ctrl_signals <= id_ex.ctrl_signals;
-          ex_mem.rs2_data <= rs2_data;
-          ex_mem.rd_addr <= id_ex.rd_addr;
-          ex_mem.imm <= id_ex.imm;
-          ex_mem.alu_q <= alu_q;
-          pc_redirect <= pc_redirect_next;
-        end
-      endcase
+      ex_mem.valid <= 1'b1;
+      ex_mem.instr <= id_ex.instr;
+      ex_mem.pc <= id_ex.pc;
+      ex_mem.ctrl_signals <= id_ex.ctrl_signals;
+      ex_mem.rs2_data <= rs2_data;
+      ex_mem.rd_addr <= id_ex.rd_addr;
+      ex_mem.imm <= id_ex.imm;
+      ex_mem.alu_q <= alu_q;
+      pc_redirect <= pc_redirect_next;
     end
   end
 

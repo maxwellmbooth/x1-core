@@ -10,7 +10,7 @@ module stage_wb (
   output flags_t flags
 );
   
-  assign rd_we = mem_wb.ctrl_signals.rd_we;
+  assign rd_we = mem_wb.ctrl_signals.rd_we && mem_wb.valid;
   assign rd_addr = mem_wb.rd_addr;
   
   logic [XLEN-1:0] mem_data;

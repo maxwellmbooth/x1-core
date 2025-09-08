@@ -1,13 +1,13 @@
 # Generated Quartus folders
-db/
-incremental_db/
-output_files/
-simulation/
+fpga/intel/quartus/db/
+fpga/intel/quartus/incremental_db/
+fpga/intel/quartus/output_files/
+fpga/intel/quartus/simulation/
 
 .qsys_edit/
 
 # Generated VS Code files
-other/hexgen/.vscode/
+other/hexgen/
 
 # Quartus backup/user setting files
 *.qws
@@ -17,4 +17,3 @@ other/hexgen/.vscode/
 
 # Other files
 compush.bat
-c5_pin_model_dump.txt

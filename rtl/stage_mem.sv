@@ -2,7 +2,7 @@ import common_pkg::*;
 
 module stage_mem (
   input clk, rst,
-  input stall_type_t stall_wb_type,
+  input ctrl_mem_t ctrl_mem,
   input ex_mem_t ex_mem,
   
   output logic [4:0] rd_addr_fwd,
@@ -10,6 +10,9 @@ module stage_mem (
   output flags_t flags,
   output mem_wb_t mem_wb
 );
+  
+  logic mem_we;
+  assign mem_we = ex_mem.ctrl_signals.mem_we && ex_mem.valid;
 
   logic [XLEN-1:0] data_in;
   logic [XLEN-1:0] data_out;
@@ -17,7 +20,7 @@ module stage_mem (
   // RAM instance
   ram ram_inst (
     .clk(clk),
-    .we(ex_mem.ctrl_signals.mem_we),
+    .we(mem_we),
     .addr(ex_mem.alu_q),
     .data_in(data_in),
     .data_out(data_out)
@@ -55,27 +58,17 @@ module stage_mem (
     if (rst) begin
       flags <= '0;
       mem_wb <= '0;
+    end else if (ctrl_mem.flush_wb) begin
+      mem_wb.valid <= 1'b0;
     end else begin
-      unique case (stall_wb_type)
-        STALL_FREEZE: begin
-          mem_wb <= mem_wb;
-        end
-        STALL_NOP: begin
-          mem_wb <= mem_wb; //CHANGE
-        end
-        STALL_FLUSH: begin
-          mem_wb <= '0;
-        end
-        STALL_NONE: begin
-          mem_wb.instr <= ex_mem.instr;
-          mem_wb.pc <= ex_mem.pc;
-          mem_wb.ctrl_signals <= ex_mem.ctrl_signals;
-          mem_wb.rd_addr <= ex_mem.rd_addr;
-          mem_wb.imm <= ex_mem.imm;
-          mem_wb.alu_q <= ex_mem.alu_q;
-          mem_wb.mem_data <= data_out;
-        end
-      endcase
+      mem_wb.valid <= 1'b1;
+      mem_wb.instr <= ex_mem.instr;
+      mem_wb.pc <= ex_mem.pc;
+      mem_wb.ctrl_signals <= ex_mem.ctrl_signals;
+      mem_wb.rd_addr <= ex_mem.rd_addr;
+      mem_wb.imm <= ex_mem.imm;
+      mem_wb.alu_q <= ex_mem.alu_q;
+      mem_wb.mem_data <= data_out;
     end
   end
   

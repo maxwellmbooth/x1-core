@@ -8,7 +8,6 @@ module core (
   
   // Core management
   flags_t flags;
-  stall_types_t stall_types;
   
   // Regfile instance
   logic [4:0] rs1_addr, rs2_addr, rd_addr;
@@ -33,13 +32,13 @@ module core (
  
   // IF stage instance
   if_id_t if_id;
+  ctrl_if_t ctrl_if;
   flags_t flags_if;
  
   stage_if stage_if_inst (
     .clk(clk),
     .rst(rst),
-    .stall_if(stall_types.stall_if),
-    .stall_id_type(stall_types.stall_id_type),
+    .ctrl_if(ctrl_if),
     .pc_redirect(pc_redirect),
     .flags(flags_if),
     .if_id(if_id),
@@ -48,12 +47,13 @@ module core (
   
   // ID stage instance
   id_ex_t id_ex;
+  ctrl_id_t ctrl_id;
   flags_t flags_id;
 
   stage_id stage_id_inst (
     .clk(clk),
     .rst(rst),
-    .stall_ex_type(stall_types.stall_ex_type),
+    .ctrl_id(ctrl_id),
     .if_id(if_id),
     .rs1_data(rs1_data),
     .rs2_data(rs2_data),
@@ -65,6 +65,7 @@ module core (
 
   // EX stage instance
   ex_mem_t ex_mem;
+  ctrl_ex_t ctrl_ex;
   flags_t flags_ex;
   
   logic [4:0] rd_addr_mem_fwd; // RAW hazard value forwarding
@@ -73,7 +74,7 @@ module core (
   stage_ex stage_ex_inst (
     .clk(clk),
     .rst(rst),
-    .stall_mem_type(stall_types.stall_mem_type),
+    .ctrl_ex(ctrl_ex),
     .rd_addr_mem_fwd(rd_addr_mem_fwd),
     .rd_addr_wb_fwd(rd_addr),
     .rd_data_mem_fwd(rd_data_mem_fwd),
@@ -86,12 +87,13 @@ module core (
 
   // MEM stage instance  
   mem_wb_t mem_wb;
+  ctrl_mem_t ctrl_mem;
   flags_t flags_mem;
   
   stage_mem stage_mem_inst (
     .clk(clk),
     .rst(rst),
-    .stall_wb_type(stall_types.stall_wb_type),
+    .ctrl_mem(ctrl_mem),
     .ex_mem(ex_mem),
     .rd_addr_fwd(rd_addr_mem_fwd),
     .rd_data_fwd(rd_data_mem_fwd),
@@ -116,9 +118,14 @@ module core (
     flags.load_use_hazard = flags_if.load_use_hazard | flags_id.load_use_hazard | flags_ex.load_use_hazard | flags_mem.load_use_hazard | flags_wb.load_use_hazard;
   
     if (flags.load_use_hazard) begin
-      stall_types = STALL_LOAD_USE;
+      ctrl_if.stall_if = 1'b1;
+      ctrl_if.stall_freeze_id = 1'b1;
+      ctrl_id.stall_nop_ex = 1'b1;
     end else begin
-      stall_types = '0;
+      ctrl_if = '0;
+      ctrl_id = '0;
+      ctrl_ex = '0;
+      ctrl_mem = '0;
     end
   end
   
