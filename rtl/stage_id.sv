@@ -1,14 +1,14 @@
 import common_pkg::*;
 
 module stage_id (
-  input logic clk, rst,
-  input ctrl_id_t ctrl_id,
-  input if_id_t if_id,
-  input logic [XLEN-1:0] rs1_data, rs2_data,
+  input logic clk_i, rst_i,
+  input ctrl_id_t ctrl_id_i,
+  input if_id_t if_id_i,
+  input logic [XLEN-1:0] rs1_data_i, rs2_data_i,
   
-  output logic [4:0] rs1_addr, rs2_addr,
-  output flags_t flags,
-  output id_ex_t id_ex
+  output logic [4:0] rs1_addr_o, rs2_addr_o,
+  output info_id_t info_id_o,
+  output id_ex_t id_ex_o
 );
 
   function automatic logic [XLEN-1:0] imm_gen (
@@ -23,20 +23,23 @@ module stage_id (
       INSTR_U_TYPE: return {instr[31:12], 12'd0};
       INSTR_J_TYPE: return {{11{instr[31]}}, instr[31], instr[19:12], instr[20], instr[30:21], 1'b0};
       INSTR_OTHER: return 32'd0;
+      default: return 32'd0;
     endcase
   endfunction
-  
-  assign rs1_addr = if_id.instr[19:15];
-  assign rs2_addr = if_id.instr[24:20];
+
+  id_ex_t id_ex_d, id_ex_q;
+
+  assign rs1_addr_o = if_id_i.instr[19:15];
+  assign rs2_addr_o = if_id_i.instr[24:20];
   
   ctrl_signals_t ctrl_signals;
   instr_type_t instr_type;
   logic eraise, illegal; //NOT FULLY IMPLEMENTED
   
   control_unit control_unit_inst (
-    .opcode(if_id.instr[6:0]),
-    .funct3(if_id.instr[14:12]),
-    .funct7(if_id.instr[31:25]),
+    .opcode(if_id_i.instr[6:0]),
+    .funct3(if_id_i.instr[14:12]),
+    .funct7(if_id_i.instr[31:25]),
     .ctrl_signals(ctrl_signals),
     .instr_type(instr_type),
     .eraise(eraise),
@@ -44,33 +47,42 @@ module stage_id (
   );
   
   always_comb begin
-    if ((id_ex.ctrl_signals.load_op != LOAD_INVALID) && ((rs1_addr == id_ex.rd_addr) || rs2_addr == id_ex.rd_addr) && if_id.valid) begin
-      flags.load_use_hazard = 1'b1;
+    info_id_o = '0;
+    if ((id_ex_o.ctrl_signals.load_op != LOAD_INVALID) && ((rs1_addr_o == id_ex_o.rd_addr) || rs2_addr_o == id_ex_o.rd_addr) && id_ex_q.valid) begin
+      info_id_o.load_use_hazard = 1'b1;
+      // fix to include check for x0 as rs1/rs1/rd and uses rs1/rs2
+    end
+    
+    id_ex_d = id_ex_q;
+    if (ctrl_id_i.flush_ex) begin
+      id_ex_d = id_ex_t'{default:'0};
+    end else if (ctrl_id_i.stall_bubble_ex) begin
+      id_ex_d.valid = 1'b0;
     end else begin
-      flags = '0;
+      id_ex_d = id_ex_t'{
+        valid: if_id_i.valid,
+        instr: if_id_i.instr,
+        pc: if_id_i.pc,
+        ctrl_signals: ctrl_signals,
+        rs1_addr: rs1_addr_o,
+        rs2_addr: rs2_addr_o,
+        rs1_data: rs1_data_i,
+        rs2_data: rs2_data_i,
+        rd_addr: if_id_i.instr[11:7],
+        shamt: if_id_i.instr[24:20],
+        imm: imm_gen(if_id_i.instr, instr_type)
+      };
     end
   end
   
-  always_ff @(posedge clk or posedge rst) begin
-    if (rst) begin
-      id_ex <= '0;
-    end else if (ctrl_id.flush_ex) begin
-      id_ex.valid <= 1'b0;
-    end else if (ctrl_id.stall_nop_ex) begin
-      id_ex.valid <= 1'b0;
+  always_ff @(posedge clk_i or posedge rst_i) begin
+    if (rst_i) begin
+      id_ex_q <= '0;
     end else begin
-      id_ex.valid <= 1'b1;
-      id_ex.instr <= if_id.instr;
-      id_ex.pc <= if_id.pc;
-      id_ex.ctrl_signals <= ctrl_signals;
-      id_ex.rs1_addr <= rs1_addr;
-      id_ex.rs2_addr <= rs2_addr;
-      id_ex.rs1_data <= rs1_data;
-      id_ex.rs2_data <= rs2_data;
-      id_ex.rd_addr <= if_id.instr[11:7];
-      id_ex.shamt <= if_id.instr[24:20];
-      id_ex.imm <= imm_gen(if_id.instr, instr_type);
+      id_ex_q <= id_ex_d;
     end
   end
   
+  assign id_ex_o = id_ex_q;
+
 endmodule

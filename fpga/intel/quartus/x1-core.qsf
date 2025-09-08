@@ -74,3 +74,8 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/core.sv
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name SYSTEMVERILOG_FILE ../../../tb/core_tb.sv
+set_global_assignment -name EDA_NETLIST_WRITER_OUTPUT_DIR "C:/Users/mboot/Projects/x1-core/sim/questa" -section_id eda_simulation
+set_global_assignment -name EDA_TEST_BENCH_NAME core_tb -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id core_tb
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME core_tb -section_id core_tb
+set_global_assignment -name EDA_TEST_BENCH_FILE ../../../tb/core_tb.sv -section_id core_tb

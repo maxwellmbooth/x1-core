@@ -13,7 +13,7 @@ module rom (
   logic [ROM_DATA_WIDTH-1:0] mem [0:ROM_DEPTH-1];
   
   initial begin
-    $readmemh("program.hex", mem);
+    $readmemh("../../../tb/program.hex", mem);
   end
   
   always_ff @(posedge clk) begin

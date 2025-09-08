@@ -6,8 +6,7 @@ module stage_wb (
   
   output logic [4:0] rd_addr,
   output logic [XLEN-1:0] rd_data,
-  output logic rd_we,
-  output flags_t flags
+  output logic rd_we
 );
   
   assign rd_we = mem_wb.ctrl_signals.rd_we && mem_wb.valid;
@@ -24,6 +23,7 @@ module stage_wb (
       LOAD_HALF: mem_data = {{16{mem_wb.mem_data[7]}}, mem_wb.mem_data[15:0]};
       LOAD_HALFU: mem_data = mem_wb.mem_data[15:0];
       LOAD_WORD: mem_data = mem_wb.mem_data;
+      default: mem_data = 'd0;
     endcase
     
     // Destination register input selection
@@ -32,13 +32,8 @@ module stage_wb (
       RD_SEL_IMM: rd_data = mem_wb.imm;
       RD_SEL_MEM: rd_data = mem_data;
       RD_SEL_PC: rd_data = mem_wb.pc;
+      default: rd_data = 32'd0;
     endcase
-  end
-  
-  always_ff @(posedge clk or posedge rst) begin
-    if (rst) begin
-      flags <= '0;
-    end
   end
 
 endmodule
