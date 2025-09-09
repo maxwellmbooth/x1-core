@@ -6,9 +6,9 @@ module core_tb;
   logic [31:0] pc;
   
   core core_inst (
-    .clk(clk),
-    .rst(rst),
-    .pc(pc)
+    .clk_i(clk),
+    .rst_i(rst),
+    .pc_o(pc)
   );
   
   initial begin

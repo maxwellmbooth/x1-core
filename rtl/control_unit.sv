@@ -1,13 +1,13 @@
 import common_pkg::*;
 
 module control_unit (
-  input logic [6:0] opcode,
-  input logic [2:0] funct3,
-  input logic [6:0] funct7,
+  input logic [6:0] opcode_i,
+  input logic [2:0] funct3_i,
+  input logic [6:0] funct7_i,
   
-  output ctrl_signals_t ctrl_signals,
-  output instr_type_t instr_type,
-  output logic eraise, illegal
+  output ctrl_signals_t ctrl_signals_o,
+  output instr_type_t instr_type_o,
+  output logic eraise_o, illegal_o
 );
 
   function automatic alu_op_t decode_alu_op (
@@ -66,165 +66,165 @@ module control_unit (
   endfunction
 
   always_comb begin
-    unique case (opcode)
+    unique case (opcode_i)
       OP_LOAD: begin
-        ctrl_signals.alu_a_sel = ALU_A_SEL_RS1;
-        ctrl_signals.alu_b_sel = ALU_B_SEL_IMM;
-        ctrl_signals.alu_op = ALU_ADD;
-        ctrl_signals.branch_op = BRANCH_INVALID;
-        ctrl_signals.store_op = STORE_INVALID;
-        ctrl_signals.load_op = decode_load_op(funct3);
-        ctrl_signals.rd_sel = RD_SEL_MEM;
-        ctrl_signals.rd_we = 1'b1;
-        ctrl_signals.mem_we = 1'b0;
-        instr_type = INSTR_I_TYPE;
+        ctrl_signals_o.alu_a_sel = ALU_A_SEL_RS1;
+        ctrl_signals_o.alu_b_sel = ALU_B_SEL_IMM;
+        ctrl_signals_o.alu_op = ALU_ADD;
+        ctrl_signals_o.branch_op = BRANCH_INVALID;
+        ctrl_signals_o.store_op = STORE_INVALID;
+        ctrl_signals_o.load_op = decode_load_op(funct3_i);
+        ctrl_signals_o.rd_sel = RD_SEL_MEM;
+        ctrl_signals_o.rd_we = 1'b1;
+        ctrl_signals_o.mem_we = 1'b0;
+        instr_type_o = INSTR_I_TYPE;
         
-        eraise = 1'b0;
-        illegal = 1'b0;
+        eraise_o = 1'b0;
+        illegal_o = 1'b0;
       end
       
       OP_STORE: begin
-        ctrl_signals.alu_a_sel = ALU_A_SEL_RS1;
-        ctrl_signals.alu_b_sel = ALU_B_SEL_IMM;
-        ctrl_signals.alu_op = ALU_ADD;
-        ctrl_signals.branch_op = BRANCH_INVALID;
-        ctrl_signals.store_op = decode_store_op(funct3);
-        ctrl_signals.load_op = LOAD_INVALID;
-        ctrl_signals.rd_sel = RD_SEL_ALU;
-        ctrl_signals.rd_we = 1'b0;
-        ctrl_signals.mem_we = 1'b1;
-        instr_type = INSTR_S_TYPE;
+        ctrl_signals_o.alu_a_sel = ALU_A_SEL_RS1;
+        ctrl_signals_o.alu_b_sel = ALU_B_SEL_IMM;
+        ctrl_signals_o.alu_op = ALU_ADD;
+        ctrl_signals_o.branch_op = BRANCH_INVALID;
+        ctrl_signals_o.store_op = decode_store_op(funct3_i);
+        ctrl_signals_o.load_op = LOAD_INVALID;
+        ctrl_signals_o.rd_sel = RD_SEL_ALU;
+        ctrl_signals_o.rd_we = 1'b0;
+        ctrl_signals_o.mem_we = 1'b1;
+        instr_type_o = INSTR_S_TYPE;
         
-        eraise = 1'b0;
-        illegal = 1'b0;
+        eraise_o = 1'b0;
+        illegal_o = 1'b0;
       end
       
       OP_ALU_IMM: begin
-        ctrl_signals.alu_a_sel = ALU_A_SEL_RS1;
-        ctrl_signals.alu_b_sel = ALU_B_SEL_IMM;
-        ctrl_signals.alu_op = decode_alu_op(funct3, funct7);
-        ctrl_signals.branch_op = BRANCH_INVALID;
-        ctrl_signals.store_op = STORE_INVALID;
-        ctrl_signals.load_op = LOAD_INVALID;
-        ctrl_signals.rd_sel = RD_SEL_ALU;
-        ctrl_signals.rd_we = 1'b1;
-        ctrl_signals.mem_we = 1'b0;
-        instr_type = INSTR_I_TYPE;
+        ctrl_signals_o.alu_a_sel = ALU_A_SEL_RS1;
+        ctrl_signals_o.alu_b_sel = ALU_B_SEL_IMM;
+        ctrl_signals_o.alu_op = decode_alu_op(funct3_i, funct7_i);
+        ctrl_signals_o.branch_op = BRANCH_INVALID;
+        ctrl_signals_o.store_op = STORE_INVALID;
+        ctrl_signals_o.load_op = LOAD_INVALID;
+        ctrl_signals_o.rd_sel = RD_SEL_ALU;
+        ctrl_signals_o.rd_we = 1'b1;
+        ctrl_signals_o.mem_we = 1'b0;
+        instr_type_o = INSTR_I_TYPE;
         
-        eraise = 1'b0;
-        illegal = 1'b0;
+        eraise_o = 1'b0;
+        illegal_o = 1'b0;
       end
       
       OP_ALU: begin
-        ctrl_signals.alu_a_sel = ALU_A_SEL_RS1;
-        ctrl_signals.alu_b_sel = ALU_B_SEL_RS2;
-        ctrl_signals.alu_op = decode_alu_op(funct3, funct7);
-        ctrl_signals.branch_op = BRANCH_INVALID;
-        ctrl_signals.store_op = STORE_INVALID;
-        ctrl_signals.load_op = LOAD_INVALID;
-        ctrl_signals.rd_sel = RD_SEL_ALU;
-        ctrl_signals.rd_we = 1'b1;
-        ctrl_signals.mem_we = 1'b0;
-        instr_type = INSTR_R_TYPE;
+        ctrl_signals_o.alu_a_sel = ALU_A_SEL_RS1;
+        ctrl_signals_o.alu_b_sel = ALU_B_SEL_RS2;
+        ctrl_signals_o.alu_op = decode_alu_op(funct3_i, funct7_i);
+        ctrl_signals_o.branch_op = BRANCH_INVALID;
+        ctrl_signals_o.store_op = STORE_INVALID;
+        ctrl_signals_o.load_op = LOAD_INVALID;
+        ctrl_signals_o.rd_sel = RD_SEL_ALU;
+        ctrl_signals_o.rd_we = 1'b1;
+        ctrl_signals_o.mem_we = 1'b0;
+        instr_type_o = INSTR_R_TYPE;
         
-        eraise = 1'b0;
-        illegal = 1'b0;
+        eraise_o = 1'b0;
+        illegal_o = 1'b0;
       end
       
       OP_AUIPC: begin
-        ctrl_signals.alu_a_sel = ALU_A_SEL_PC;
-        ctrl_signals.alu_b_sel = ALU_B_SEL_IMM;
-        ctrl_signals.alu_op = ALU_ADD;
-        ctrl_signals.branch_op = BRANCH_INVALID;
-        ctrl_signals.store_op = STORE_INVALID;
-        ctrl_signals.load_op = LOAD_INVALID;
-        ctrl_signals.rd_sel = RD_SEL_ALU;
-        ctrl_signals.rd_we = 1'b1;
-        ctrl_signals.mem_we = 1'b0;
-        instr_type = INSTR_U_TYPE;
+        ctrl_signals_o.alu_a_sel = ALU_A_SEL_PC;
+        ctrl_signals_o.alu_b_sel = ALU_B_SEL_IMM;
+        ctrl_signals_o.alu_op = ALU_ADD;
+        ctrl_signals_o.branch_op = BRANCH_INVALID;
+        ctrl_signals_o.store_op = STORE_INVALID;
+        ctrl_signals_o.load_op = LOAD_INVALID;
+        ctrl_signals_o.rd_sel = RD_SEL_ALU;
+        ctrl_signals_o.rd_we = 1'b1;
+        ctrl_signals_o.mem_we = 1'b0;
+        instr_type_o = INSTR_U_TYPE;
         
-        eraise = 1'b0;
-        illegal = 1'b0;
+        eraise_o = 1'b0;
+        illegal_o = 1'b0;
       end
       
       OP_LUI: begin
-        ctrl_signals.alu_a_sel = ALU_A_SEL_RS1;
-        ctrl_signals.alu_b_sel = ALU_B_SEL_RS2;
-        ctrl_signals.alu_op = ALU_INVALID;
-        ctrl_signals.branch_op = BRANCH_INVALID;
-        ctrl_signals.store_op = STORE_INVALID;
-        ctrl_signals.load_op = LOAD_INVALID;
-        ctrl_signals.rd_sel = RD_SEL_IMM;
-        ctrl_signals.rd_we = 1'b1;
-        ctrl_signals.mem_we = 1'b0;
-        instr_type = INSTR_U_TYPE;
+        ctrl_signals_o.alu_a_sel = ALU_A_SEL_RS1;
+        ctrl_signals_o.alu_b_sel = ALU_B_SEL_RS2;
+        ctrl_signals_o.alu_op = ALU_INVALID;
+        ctrl_signals_o.branch_op = BRANCH_INVALID;
+        ctrl_signals_o.store_op = STORE_INVALID;
+        ctrl_signals_o.load_op = LOAD_INVALID;
+        ctrl_signals_o.rd_sel = RD_SEL_IMM;
+        ctrl_signals_o.rd_we = 1'b1;
+        ctrl_signals_o.mem_we = 1'b0;
+        instr_type_o = INSTR_U_TYPE;
         
-        eraise = 1'b0;
-        illegal = 1'b0;
+        eraise_o = 1'b0;
+        illegal_o = 1'b0;
       end
       
       OP_BRANCH: begin
-        ctrl_signals.alu_a_sel = ALU_A_SEL_RS1;
-        ctrl_signals.alu_b_sel = ALU_B_SEL_RS2;
-        ctrl_signals.alu_op = ALU_INVALID;
-        ctrl_signals.branch_op = decode_branch_op(funct3);
-        ctrl_signals.store_op = STORE_INVALID;
-        ctrl_signals.load_op = LOAD_INVALID;
-        ctrl_signals.rd_sel = RD_SEL_ALU;
-        ctrl_signals.rd_we = 1'b0;
-        ctrl_signals.mem_we = 1'b0;
-        instr_type = INSTR_B_TYPE;
+        ctrl_signals_o.alu_a_sel = ALU_A_SEL_RS1;
+        ctrl_signals_o.alu_b_sel = ALU_B_SEL_RS2;
+        ctrl_signals_o.alu_op = ALU_INVALID;
+        ctrl_signals_o.branch_op = decode_branch_op(funct3_i);
+        ctrl_signals_o.store_op = STORE_INVALID;
+        ctrl_signals_o.load_op = LOAD_INVALID;
+        ctrl_signals_o.rd_sel = RD_SEL_ALU;
+        ctrl_signals_o.rd_we = 1'b0;
+        ctrl_signals_o.mem_we = 1'b0;
+        instr_type_o = INSTR_B_TYPE;
         
-        eraise = 1'b0;
-        illegal = 1'b0;
+        eraise_o = 1'b0;
+        illegal_o = 1'b0;
       end
       
       OP_JALR: begin
-        ctrl_signals.alu_a_sel = ALU_A_SEL_RS1;
-        ctrl_signals.alu_b_sel = ALU_B_SEL_IMM;
-        ctrl_signals.alu_op = ALU_ADD;
-        ctrl_signals.branch_op = JALR;
-        ctrl_signals.store_op = STORE_INVALID;
-        ctrl_signals.load_op = LOAD_INVALID;
-        ctrl_signals.rd_sel = RD_SEL_PC;
-        ctrl_signals.rd_we = 1'b1;
-        ctrl_signals.mem_we = 1'b0;
-        instr_type = INSTR_I_TYPE;
+        ctrl_signals_o.alu_a_sel = ALU_A_SEL_RS1;
+        ctrl_signals_o.alu_b_sel = ALU_B_SEL_IMM;
+        ctrl_signals_o.alu_op = ALU_ADD;
+        ctrl_signals_o.branch_op = JALR;
+        ctrl_signals_o.store_op = STORE_INVALID;
+        ctrl_signals_o.load_op = LOAD_INVALID;
+        ctrl_signals_o.rd_sel = RD_SEL_PC;
+        ctrl_signals_o.rd_we = 1'b1;
+        ctrl_signals_o.mem_we = 1'b0;
+        instr_type_o = INSTR_I_TYPE;
         
-        eraise = 1'b0;
-        illegal = 1'b0;
+        eraise_o = 1'b0;
+        illegal_o = 1'b0;
       end
       
       OP_JAL: begin
-        ctrl_signals.alu_a_sel = ALU_A_SEL_PC;
-        ctrl_signals.alu_b_sel = ALU_B_SEL_IMM;
-        ctrl_signals.alu_op = ALU_ADD;
-        ctrl_signals.branch_op = JAL;
-        ctrl_signals.store_op = STORE_INVALID;
-        ctrl_signals.load_op = LOAD_INVALID;
-        ctrl_signals.rd_sel = RD_SEL_PC;
-        ctrl_signals.rd_we = 1'b1;
-        ctrl_signals.mem_we = 1'b0;
-        instr_type = INSTR_J_TYPE;
+        ctrl_signals_o.alu_a_sel = ALU_A_SEL_PC;
+        ctrl_signals_o.alu_b_sel = ALU_B_SEL_IMM;
+        ctrl_signals_o.alu_op = ALU_ADD;
+        ctrl_signals_o.branch_op = JAL;
+        ctrl_signals_o.store_op = STORE_INVALID;
+        ctrl_signals_o.load_op = LOAD_INVALID;
+        ctrl_signals_o.rd_sel = RD_SEL_PC;
+        ctrl_signals_o.rd_we = 1'b1;
+        ctrl_signals_o.mem_we = 1'b0;
+        instr_type_o = INSTR_J_TYPE;
         
-        eraise = 1'b0;
-        illegal = 1'b0;
+        eraise_o = 1'b0;
+        illegal_o = 1'b0;
       end
       
       OP_SYSTEM: begin
-        ctrl_signals = '0;
-        instr_type = INSTR_OTHER;
+        ctrl_signals_o = '0;
+        instr_type_o = INSTR_OTHER;
         
-        eraise = 1'b1;
-        illegal = 1'b0;
+        eraise_o = 1'b1;
+        illegal_o = 1'b0;
       end
 
       default: begin
-        ctrl_signals = '0;
-        instr_type = INSTR_OTHER;
+        ctrl_signals_o = '0;
+        instr_type_o = INSTR_OTHER;
         
-        eraise = 1'b0;
-        illegal = 1'b1;
+        eraise_o = 1'b0;
+        illegal_o = 1'b1;
       end
       
     endcase

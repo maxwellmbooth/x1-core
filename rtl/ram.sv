@@ -4,22 +4,22 @@ parameter int RAM_DEPTH = 1 << RAM_ADDR_WIDTH;
 
 
 module ram (
-  input logic clk,
-  input logic we,
-  input logic [RAM_ADDR_WIDTH-1:0] addr,
-  input logic [RAM_DATA_WIDTH-1:0] data_in,
+  input logic clk_i,
+  input logic we_i,
+  input logic [RAM_ADDR_WIDTH-1:0] addr_i,
+  input logic [RAM_DATA_WIDTH-1:0] data_i,
   
-  output logic [RAM_DATA_WIDTH-1:0] data_out
+  output logic [RAM_DATA_WIDTH-1:0] data_o
 );
 
   logic [RAM_DATA_WIDTH-1:0] mem [0:RAM_DEPTH-1];
   
-  always_ff @(posedge clk) begin
-    if (we) begin
-      mem[addr] <= data_in;
-      data_out <= data_in;
+  always_ff @(posedge clk_i) begin
+    if (we_i) begin
+      mem[addr_i] <= data_i;
+      data_o <= data_i;
     end else begin
-      data_out <= mem[addr];
+      data_o <= mem[addr_i];
     end
   end
 

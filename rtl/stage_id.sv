@@ -37,13 +37,13 @@ module stage_id (
   logic eraise, illegal; //NOT FULLY IMPLEMENTED
   
   control_unit control_unit_inst (
-    .opcode(if_id_i.instr[6:0]),
-    .funct3(if_id_i.instr[14:12]),
-    .funct7(if_id_i.instr[31:25]),
-    .ctrl_signals(ctrl_signals),
-    .instr_type(instr_type),
-    .eraise(eraise),
-    .illegal(illegal)
+    .opcode_i(if_id_i.instr[6:0]),
+    .funct3_i(if_id_i.instr[14:12]),
+    .funct7_i(if_id_i.instr[31:25]),
+    .ctrl_signals_o(ctrl_signals),
+    .instr_type_o(instr_type),
+    .eraise_o(eraise),
+    .illegal_o(illegal)
   );
   
   always_comb begin
@@ -55,23 +55,21 @@ module stage_id (
     
     id_ex_d = id_ex_q;
     if (ctrl_id_i.flush_ex) begin
-      id_ex_d = id_ex_t'{default:'0};
+      id_ex_d = '0;
     end else if (ctrl_id_i.stall_bubble_ex) begin
       id_ex_d.valid = 1'b0;
     end else begin
-      id_ex_d = id_ex_t'{
-        valid: if_id_i.valid,
-        instr: if_id_i.instr,
-        pc: if_id_i.pc,
-        ctrl_signals: ctrl_signals,
-        rs1_addr: rs1_addr_o,
-        rs2_addr: rs2_addr_o,
-        rs1_data: rs1_data_i,
-        rs2_data: rs2_data_i,
-        rd_addr: if_id_i.instr[11:7],
-        shamt: if_id_i.instr[24:20],
-        imm: imm_gen(if_id_i.instr, instr_type)
-      };
+      id_ex_d.valid = if_id_i.valid;
+      id_ex_d.instr = if_id_i.instr;
+      id_ex_d.pc = if_id_i.pc;
+      id_ex_d.ctrl_signals = ctrl_signals;
+      id_ex_d.rs1_addr = rs1_addr_o;
+      id_ex_d.rs2_addr = rs2_addr_o;
+      id_ex_d.rs1_data = rs1_data_i;
+      id_ex_d.rs2_data = rs2_data_i;
+      id_ex_d.rd_addr = if_id_i.instr[11:7];
+      id_ex_d.shamt = if_id_i.instr[24:20];
+      id_ex_d.imm = imm_gen(if_id_i.instr, instr_type);
     end
   end
   

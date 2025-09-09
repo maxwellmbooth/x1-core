@@ -19,32 +19,30 @@ module stage_if (
   logic [31:0] instr;
   
   program_counter program_counter_inst (
-    .clk(clk_i),
-    .rst(rst_i),
-    .pc_we(pc_we),
-    .pc_redirect(pc_redirect_i),
-    .pc(pc)
+    .clk_i(clk_i),
+    .rst_i(rst_i),
+    .pc_we_i(pc_we),
+    .pc_redirect_i(pc_redirect_i),
+    .pc_o(pc)
   );
   
   logic [31:0] rom_addr;
   assign rom_addr = {24'd0, pc[9:2]};
 
   rom rom_inst (
-    .clk(clk_i),
-    .addr(rom_addr),
-    .data(instr)
+    .clk_i(clk_i),
+    .addr_i(rom_addr),
+    .data_o(instr)
   );
 
   always_comb begin
     if_id_d = if_id_q;
     if (ctrl_if_i.flush_id) begin
-      if_id_d = if_id_t'{default:'0};
+      if_id_d = '0;
     end else if (!ctrl_if_i.stall_hold_id) begin
-      if_id_d = if_id_t'{
-        valid: 1'b1,
-        pc: pc,
-        instr: instr
-      };
+      if_id_d.valid = 1'b1;
+      if_id_d.pc = pc;
+      if_id_d.instr = instr;
     end
   end
   

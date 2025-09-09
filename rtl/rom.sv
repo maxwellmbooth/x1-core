@@ -4,10 +4,10 @@ parameter int ROM_DEPTH = 1 << ROM_ADDR_WIDTH;
 
 
 module rom (
-  input logic clk,
-  input logic [ROM_ADDR_WIDTH-1:0] addr,
+  input logic clk_i,
+  input logic [ROM_ADDR_WIDTH-1:0] addr_i,
   
-  output logic [ROM_DATA_WIDTH-1:0] data
+  output logic [ROM_DATA_WIDTH-1:0] data_o
 );
 
   logic [ROM_DATA_WIDTH-1:0] mem [0:ROM_DEPTH-1];
@@ -16,8 +16,8 @@ module rom (
     $readmemh("../../../tb/program.hex", mem);
   end
   
-  always_ff @(posedge clk) begin
-    data <= mem[addr];
+  always_ff @(posedge clk_i) begin
+    data_o <= mem[addr_i];
   end
 
 endmodule

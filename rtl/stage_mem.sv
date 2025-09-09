@@ -19,11 +19,11 @@ module stage_mem (
   
   // RAM instance
   ram ram_inst (
-    .clk(clk),
-    .we(mem_we),
-    .addr(ex_mem_i.alu_q),
-    .data_in(data_in),
-    .data_out(data_out)
+    .clk_i(clk),
+    .we_i(mem_we),
+    .addr_i(ex_mem_i.alu_q),
+    .data_i(data_in),
+    .data_o(data_out)
   );
   
   // Memory input selection
@@ -56,18 +56,16 @@ module stage_mem (
 
     mem_wb_d = mem_wb_q;
     if (ctrl_mem_i.flush_wb) begin
-      mem_wb_d = mem_wb_t'{default:'0};
+      mem_wb_d = '0;
     end else begin
-      mem_wb_d = mem_wb_t'{
-        valid: ex_mem_i.valid,
-        instr: ex_mem_i.instr,
-        pc: ex_mem_i.pc,
-        ctrl_signals: ex_mem_i.ctrl_signals,
-        rd_addr: ex_mem_i.rd_addr,
-        imm: ex_mem_i.imm,
-        alu_q: ex_mem_i.alu_q,
-        mem_data: data_out
-      };
+      mem_wb_d.valid = ex_mem_i.valid;
+      mem_wb_d.instr = ex_mem_i.instr;
+      mem_wb_d.pc = ex_mem_i.pc;
+      mem_wb_d.ctrl_signals = ex_mem_i.ctrl_signals;
+      mem_wb_d.rd_addr = ex_mem_i.rd_addr;
+      mem_wb_d.imm = ex_mem_i.imm;
+      mem_wb_d.alu_q = ex_mem_i.alu_q;
+      mem_wb_d.mem_data = data_out;
     end
   end
   

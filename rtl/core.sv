@@ -1,9 +1,9 @@
 import common_pkg::*;
 
 module core (
-  input logic clk, rst,
+  input logic clk_i, rst_i,
   
-  output logic [XLEN-1:0] pc
+  output logic [XLEN-1:0] pc_o
 );
   
   // Regfile instance
@@ -13,13 +13,13 @@ module core (
   logic [XLEN-1:0] rs1_data, rs2_data;
   
   regfile regfile_inst (
-    .clk(clk),
-    .rst(rst),
-    .rs1_addr(rs1_addr),
-    .rs2_addr(rs2_addr),
-    .rd_addr(rd_addr),
-    .rd_data(rd_data),
-    .rd_we(rd_we),
+    .clk(clk_i),
+    .rst(rst_i),
+    .rs1_addr_i(rs1_addr),
+    .rs2_addr_i(rs2_addr),
+    .rd_addr_i(rd_addr),
+    .rd_data_i(rd_data),
+    .rd_we_i(rd_we),
     .rs1_data(rs1_data),
     .rs2_data(rs2_data)
   );
@@ -32,12 +32,12 @@ module core (
   ctrl_if_t ctrl_if;
  
   stage_if stage_if_inst (
-    .clk_i(clk),
-    .rst_i(rst),
+    .clk_i(clk_i),
+    .rst_i(rst_i),
     .ctrl_if_i(ctrl_if),
     .pc_redirect_i(pc_redirect),
     .if_id_o(if_id),
-    .pc_o(pc)
+    .pc_o(pc_o)
   );
   
   // ID stage instance
@@ -46,8 +46,8 @@ module core (
   info_id_t info_id;
 
   stage_id stage_id_inst (
-    .clk_i(clk),
-    .rst_i(rst),
+    .clk_i(clk_i),
+    .rst_i(rst_i),
     .ctrl_id_i(ctrl_id),
     .if_id_i(if_id),
     .rs1_data_i(rs1_data),
@@ -63,8 +63,8 @@ module core (
   ctrl_ex_t ctrl_ex;
   
   stage_ex stage_ex_inst (
-    .clk_i(clk),
-    .rst_i(rst),
+    .clk_i(clk_i),
+    .rst_i(rst_i),
     .ctrl_ex_i(ctrl_ex),
     .id_ex_i(id_ex),
     .pc_redirect_o(pc_redirect),
@@ -80,8 +80,8 @@ module core (
   assign ctrl_ex.rd_data_mem_fwd = info_mem.rd_data_fwd;
   
   stage_mem stage_mem_inst (
-    .clk(clk),
-    .rst(rst),
+    .clk(clk_i),
+    .rst(rst_i),
     .ctrl_mem_i(ctrl_mem),
     .ex_mem_i(ex_mem),
     .info_mem_o(info_mem),
@@ -94,8 +94,8 @@ module core (
   assign ctrl_ex.rd_data_wb_fwd = rd_data;
 
   stage_wb stage_wb_inst (
-    .clk(clk),
-    .rst(rst),
+    .clk(clk_i),
+    .rst(rst_i),
     .mem_wb(mem_wb),
     .rd_addr(rd_addr),
     .rd_data(rd_data),

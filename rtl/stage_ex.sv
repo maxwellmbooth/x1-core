@@ -17,13 +17,13 @@ module stage_ex (
   
   // ALU instance
   alu alu_inst (
-    .a(alu_a),
-    .b(alu_b),
-    .op(id_ex_i.ctrl_signals.alu_op),
-    .q(alu_q),
-    .eq(alu_eq),
-    .lt(alu_lt),
-    .ltu(alu_ltu)
+    .a_i(alu_a),
+    .b_i(alu_b),
+    .op_i(id_ex_i.ctrl_signals.alu_op),
+    .q_o(alu_q),
+    .eq_o(alu_eq),
+    .lt_o(alu_lt),
+    .ltu_o(alu_ltu)
   );
   
   logic [XLEN-1:0] rs1_data, rs2_data;
@@ -103,18 +103,16 @@ module stage_ex (
 
     ex_mem_d = ex_mem_q;
     if (ctrl_ex_i.flush_mem) begin
-      ex_mem_o.valid <= 1'b0;
+      ex_mem_d.valid = '0;
     end else begin
-      ex_mem_d = ex_mem_t'{
-        valid: id_ex_i.valid,
-        instr: id_ex_i.instr,
-        pc: id_ex_i.pc,
-        ctrl_signals: id_ex_i.ctrl_signals,
-        rs2_data: rs2_data,
-        rd_addr: id_ex_i.rd_addr,
-        imm: id_ex_i.imm,
-        alu_q: alu_q
-      };
+      ex_mem_d.valid = id_ex_i.valid;
+      ex_mem_d.instr = id_ex_i.instr;
+      ex_mem_d.pc = id_ex_i.pc;
+      ex_mem_d.ctrl_signals = id_ex_i.ctrl_signals;
+      ex_mem_d.rs2_data = rs2_data;
+      ex_mem_d.rd_addr = id_ex_i.rd_addr;
+      ex_mem_d.imm = id_ex_i.imm;
+      ex_mem_d.alu_q = alu_q;
     end
   end
   
