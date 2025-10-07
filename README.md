@@ -6,10 +6,8 @@ Quartus for compilation and Questa for simulation (with upcoming support for Xil
 - Pipelined core with 5 stages: IF, ID, EX, MEM, WB
 - Full RV32I implementation
 ## To-do:
-- Rename with \*_d/\*_q for regs and \*_i/\*_o for ports
-- Add next for all pipeline regs
-- rename flags to info
 - Stalling on exception/syscall
+- Test branching
 - Add MC extensions
 ## Other information
 ### NOP
