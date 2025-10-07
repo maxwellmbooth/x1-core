@@ -29,13 +29,13 @@ module stage_ex (
   logic [XLEN-1:0] rs1_data, rs2_data;
 
   always_comb begin
-    // Data forwarding from MEM/WB for rs1/rs2
-    if (ctrl_ex_i.rd_addr_mem_fwd == id_ex_i.rs1_addr) rs1_data = ctrl_ex_i.rd_data_mem_fwd;
-    else if (ctrl_ex_i.rd_addr_wb_fwd == id_ex_i.rs1_addr) rs1_data = ctrl_ex_i.rd_data_wb_fwd;
+    // Data forwarding from MEM/WB for rs1/rs2                                              ADD CHECK TO SEE IF FORWARDING FROM VALID STAGE
+    if (ctrl_ex_i.rd_addr_mem_fwd == id_ex_i.rs1_addr && ctrl_ex_i.mem_valid) rs1_data = ctrl_ex_i.rd_data_mem_fwd;
+    else if (ctrl_ex_i.rd_addr_wb_fwd == id_ex_i.rs1_addr && ctrl_ex_i.wb_valid) rs1_data = ctrl_ex_i.rd_data_wb_fwd;
     else rs1_data = id_ex_i.rs1_data;
     
-    if (ctrl_ex_i.rd_addr_mem_fwd == id_ex_i.rs2_addr) rs2_data = ctrl_ex_i.rd_data_mem_fwd;
-    else if (ctrl_ex_i.rd_addr_wb_fwd == id_ex_i.rs2_addr) rs2_data = ctrl_ex_i.rd_data_wb_fwd;
+    if (ctrl_ex_i.rd_addr_mem_fwd == id_ex_i.rs2_addr && ctrl_ex_i.mem_valid) rs2_data = ctrl_ex_i.rd_data_mem_fwd;
+    else if (ctrl_ex_i.rd_addr_wb_fwd == id_ex_i.rs2_addr && ctrl_ex_i.wb_valid) rs2_data = ctrl_ex_i.rd_data_wb_fwd;
     else rs2_data = id_ex_i.rs2_data;
     
     // ALU A input selection

@@ -78,6 +78,7 @@ module core (
 
   assign ctrl_ex.rd_addr_mem_fwd = info_mem.rd_addr_fwd;
   assign ctrl_ex.rd_data_mem_fwd = info_mem.rd_data_fwd;
+  assign ctrl_ex.mem_valid = info_mem.valid;
   
   stage_mem stage_mem_inst (
     .clk(clk_i),
@@ -89,17 +90,20 @@ module core (
   );
   
   // WB stage instance
+  info_wb_t info_wb;
 
   assign ctrl_ex.rd_addr_wb_fwd = rd_addr;
   assign ctrl_ex.rd_data_wb_fwd = rd_data;
+  assign ctrl_ex.wb_valid = info_wb.valid;
 
   stage_wb stage_wb_inst (
     .clk(clk_i),
     .rst(rst_i),
-    .mem_wb(mem_wb),
-    .rd_addr(rd_addr),
-    .rd_data(rd_data),
-    .rd_we(rd_we)
+    .mem_wb_i(mem_wb),
+    .rd_addr_o(rd_addr),
+    .rd_data_o(rd_data),
+    .rd_we_o(rd_we),
+    .info_wb_o(info_wb)
   );
   
   always_comb begin
@@ -108,10 +112,9 @@ module core (
       ctrl_if.stall_hold_id = 1'b1;
       ctrl_id.stall_bubble_ex = 1'b1;
     end else begin
-      ctrl_if = '0;
-      ctrl_id = '0;
-      ctrl_ex = '0;
-      ctrl_mem = '0;
+      ctrl_if.stall_if = 1'b0;
+      ctrl_if.stall_hold_id = 1'b0;
+      ctrl_id.stall_bubble_ex = 1'b0;
     end
   end
   

@@ -48,7 +48,7 @@ module stage_id (
   
   always_comb begin
     info_id_o = '0;
-    if ((id_ex_o.ctrl_signals.load_op != LOAD_INVALID) && ((rs1_addr_o == id_ex_o.rd_addr) || rs2_addr_o == id_ex_o.rd_addr) && id_ex_q.valid) begin
+    if ((id_ex_q.ctrl_signals.load_op != LOAD_INVALID) && ((rs1_addr_o == id_ex_q.rd_addr) || (rs2_addr_o == id_ex_q.rd_addr)) && id_ex_q.valid) begin
       info_id_o.load_use_hazard = 1'b1;
       // fix to include check for x0 as rs1/rs1/rd and uses rs1/rs2
     end

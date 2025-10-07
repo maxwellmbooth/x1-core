@@ -106,9 +106,15 @@ package common_pkg;
 
   // MEM info
   typedef struct packed {
+    logic valid;
     logic [4:0] rd_addr_fwd;
     logic [XLEN-1:0] rd_data_fwd;
   } info_mem_t;
+
+  // WB info
+  typedef struct packed {
+    logic valid;
+  } info_wb_t;
   
   // IF control
   typedef struct packed {
@@ -130,6 +136,8 @@ package common_pkg;
     logic [4:0] rd_addr_wb_fwd;
     logic [XLEN-1:0] rd_data_mem_fwd;
     logic [XLEN-1:0] rd_data_wb_fwd;
+    logic mem_valid;
+    logic wb_valid;
   } ctrl_ex_t;  
   
   // MEM control

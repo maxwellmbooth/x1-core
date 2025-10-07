@@ -71,12 +71,13 @@ module stage_mem (
   
   always_ff @(posedge clk or posedge rst) begin
     if (rst) begin
-      mem_wb_o <= '0;
+      mem_wb_q <= '0;
     end else begin
       mem_wb_q <= mem_wb_d;
     end
   end
 
+  assign info_mem_o.valid = ex_mem_i.valid;
   assign mem_wb_o = mem_wb_q;
   
 endmodule
