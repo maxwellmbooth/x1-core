@@ -5,6 +5,7 @@ parameter int ROM_DEPTH = 1 << ROM_ADDR_WIDTH;
 
 module rom (
   input logic clk_i,
+  input logic re_i,
   input logic [ROM_ADDR_WIDTH-1:0] addr_i,
   
   output logic [ROM_DATA_WIDTH-1:0] data_o
@@ -17,7 +18,7 @@ module rom (
   end
   
   always_ff @(posedge clk_i) begin
-    data_o <= mem[addr_i];
+    if (re_i) data_o <= mem[addr_i];
   end
 
 endmodule

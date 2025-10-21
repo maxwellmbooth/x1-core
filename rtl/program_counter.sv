@@ -11,14 +11,14 @@ module program_counter (
   logic [XLEN-1:0] pc_next;
   
   always_comb begin
-    pc_next = pc_o + 'd4;
+    pc_next = (pc_redirect_i.valid ? pc_redirect_i.target : pc_o) + 'd4;
   end
   
   always_ff @(posedge clk_i or posedge rst_i) begin
     if (rst_i) begin
       pc_o <= PC_RESET;
     end else if (pc_we_i) begin
-      pc_o <= pc_redirect_i.valid ? pc_redirect_i.target : pc_next;
+      pc_o <= pc_next;
     end
   end
   

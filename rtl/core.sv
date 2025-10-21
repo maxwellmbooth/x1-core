@@ -116,6 +116,16 @@ module core (
       ctrl_if.stall_hold_id = 1'b0;
       ctrl_id.stall_bubble_ex = 1'b0;
     end
+
+    if (pc_redirect.valid) begin
+      ctrl_if.flush_id = 1'b1;
+      ctrl_id.flush_ex = 1'b1;
+      ctrl_ex.flush_mem = 1'b1;
+    end else begin
+      ctrl_if.flush_id = 1'b0;
+      ctrl_id.flush_ex = 1'b0;
+      ctrl_ex.flush_mem = 1'b0;
+    end
   end
   
 endmodule

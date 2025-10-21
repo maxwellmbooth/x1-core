@@ -7,7 +7,6 @@ Quartus for compilation and Questa for simulation (with upcoming support for Xil
 - Full RV32I implementation
 ## To-do:
 - Stalling on exception/syscall
-- Test branching
 - Add MC extensions
 ## Other information
 ### NOP
