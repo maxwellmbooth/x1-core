@@ -8,6 +8,7 @@ Quartus for compilation and Questa for simulation (with upcoming support for Xil
 ## To-do:
 - Stalling on exception/syscall
 - Add MC extensions
+- Add memory controller
 ## Other information
 ### NOP
 NOP is implemented as `addi x0, x0, 0` (`0x00000013`)

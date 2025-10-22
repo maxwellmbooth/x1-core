@@ -17,7 +17,7 @@ module core_tb;
     #5 rst = 1'b1;
     #5 rst = 1'b0;
     
-    repeat(20) begin
+    repeat(100) begin
       #5 clk = 1'b1;
       #5 clk = 1'b0;
     end

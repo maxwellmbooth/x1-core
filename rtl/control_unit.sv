@@ -26,6 +26,23 @@ module control_unit (
       default: return ALU_INVALID;
     endcase
   endfunction
+
+  function automatic alu_op_t decode_alu_op_imm (
+    input logic [2:0] funct3,
+    input logic [6:0] funct7
+  );
+    unique case(funct3)
+      3'b000: return ALU_ADD;
+      3'b001: return ALU_SLL;
+      3'b010: return ALU_SLT;
+      3'b011: return ALU_SLTU;
+      3'b100: return ALU_XOR;
+      3'b101: return (funct7[5]? ALU_SRA : ALU_SRL);
+      3'b110: return ALU_OR;
+      3'b111: return ALU_AND;
+      default: return ALU_INVALID;
+    endcase
+  endfunction
   
   function automatic branch_op_t decode_branch_op (
     input logic [2:0] funct3
@@ -102,7 +119,7 @@ module control_unit (
       OP_ALU_IMM: begin
         ctrl_signals_o.alu_a_sel = ALU_A_SEL_RS1;
         ctrl_signals_o.alu_b_sel = ALU_B_SEL_IMM;
-        ctrl_signals_o.alu_op = decode_alu_op(funct3_i, funct7_i);
+        ctrl_signals_o.alu_op = decode_alu_op_imm(funct3_i, funct7_i);
         ctrl_signals_o.branch_op = BRANCH_INVALID;
         ctrl_signals_o.store_op = STORE_INVALID;
         ctrl_signals_o.load_op = LOAD_INVALID;

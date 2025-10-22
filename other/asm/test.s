@@ -5,10 +5,8 @@
 	.type _start, @function
 	.align 2
 _start:
-	addi x1, x0, 68
-	sw x1, 0(x0)
-	lw x2, 0(x0)
-	addi x2, x2, 1
-	blt x1, x2, good
-	addi x3, x0, 1
+	addi x1, x0, 13
+go:	addi x1, x1, -1
+	beq x1, x0, good
+	jal x2, go
 good:	addi x4, x4, 1
