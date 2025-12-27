@@ -54,7 +54,7 @@ module stage_ex (
     endcase
     
     // Branch redirect selection
-    if (ctrl_ex_i.flush_mem) begin
+    if (ctrl_ex_i.flush_ex_mem) begin
       pc_redirect_d = '0;
     end else begin
       unique case (id_ex_i.ctrl_signals.branch_op)
@@ -107,7 +107,7 @@ module stage_ex (
 
 
     ex_mem_d = ex_mem_q;
-    if (ctrl_ex_i.flush_mem) begin
+    if (ctrl_ex_i.flush_ex_mem) begin
       ex_mem_d.valid = '0;
     end else begin
       ex_mem_d.valid = id_ex_i.valid;

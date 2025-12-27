@@ -55,7 +55,7 @@ module stage_mem (
     endcase
 
     mem_wb_d = mem_wb_q;
-    if (ctrl_mem_i.flush_wb) begin
+    if (ctrl_mem_i.flush_mem_wb) begin
       mem_wb_d = '0;
     end else begin
       mem_wb_d.valid = ex_mem_i.valid;

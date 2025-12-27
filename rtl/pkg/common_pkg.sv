@@ -99,6 +99,27 @@ package common_pkg;
   
   // STRUCTS
 
+  // Memory request
+  typedef struct packed {
+    logic valid;
+    logic we;
+    logic [31:0] addr;
+    logic [XLEN-1:0] wdata;
+  } mem_req_t;
+
+  // Memory response
+  typedef struct packed {
+    logic valid;
+    logic ready;
+    logic addr_invalid;
+    logic [XLEN-1:0] rdata;
+  } mem_rsp_t;
+
+  // IF info
+  typedef struct packed {
+    logic imem_req_inflight;
+  } info_if_t;
+
   // ID info
   typedef struct packed {
     logic load_use_hazard;
@@ -118,20 +139,21 @@ package common_pkg;
   
   // IF control
   typedef struct packed {
-    logic flush_id;
-    logic stall_if;
-    logic stall_hold_id;
+    logic stall_hold_pc;
+    logic flush_if_id;
+    logic stall_hold_if_id;
+    logic stall_bubble_if_id;
   } ctrl_if_t;
   
   // ID control
   typedef struct packed {
-    logic flush_ex;
-    logic stall_bubble_ex;
+    logic flush_id_ex;
+    logic stall_bubble_id_ex;
   } ctrl_id_t;
   
   // EX control
   typedef struct packed {
-    logic flush_mem;
+    logic flush_ex_mem;
     logic [4:0] rd_addr_mem_fwd;
     logic [4:0] rd_addr_wb_fwd;
     logic [XLEN-1:0] rd_data_mem_fwd;
@@ -142,7 +164,7 @@ package common_pkg;
   
   // MEM control
   typedef struct packed {
-    logic flush_wb;
+    logic flush_mem_wb;
   } ctrl_mem_t;
   
   // PC redirect

@@ -6,7 +6,7 @@ Quartus for compilation and Questa for simulation (with upcoming support for Xil
 - Pipelined core with 5 stages: IF, ID, EX, MEM, WB
 - Full RV32I implementation
 ## To-do:
-- Stalling on exception/syscall
+- Implement privilege
 - Add MC extensions
 - Add memory controller
 ## Other information

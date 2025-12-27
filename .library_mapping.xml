@@ -4,5 +4,6 @@
   <Mappings Location="Common Libraries/IEEE Synopsys" Library="ieee"/>
   <Mappings Location="Common Libraries" Library="not mapped"/>
   <Mappings Location="rtl" Library="rtl"/>
+  <Mappings Location="tb/top_tb.sv" Library="rtl"/>
   <Mappings Location="Common Libraries/STD" Library="std"/>
 </com.sigasi.hdt.shared.librarymapping.model:LibraryMappings>

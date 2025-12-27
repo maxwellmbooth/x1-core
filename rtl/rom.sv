@@ -1,14 +1,15 @@
-parameter int ROM_ADDR_WIDTH = 8;
+import common_pkg::*;
+
+parameter int ROM_ADDR_WIDTH = 16;
 parameter int ROM_DATA_WIDTH = 32;
 parameter int ROM_DEPTH = 1 << ROM_ADDR_WIDTH;
 
 
 module rom (
   input logic clk_i,
-  input logic re_i,
-  input logic [ROM_ADDR_WIDTH-1:0] addr_i,
+  input mem_req_t mem_req_i,
   
-  output logic [ROM_DATA_WIDTH-1:0] data_o
+  output mem_rsp_t mem_rsp_o
 );
 
   logic [ROM_DATA_WIDTH-1:0] mem [0:ROM_DEPTH-1];
@@ -18,7 +19,10 @@ module rom (
   end
   
   always_ff @(posedge clk_i) begin
-    if (re_i) data_o <= mem[addr_i];
+    mem_rsp_o.valid <= 1'b1;
+    mem_rsp_o.ready <= 1'b1;
+    mem_rsp_o.addr_invalid <= 1'b0;
+    mem_rsp_o.rdata <= mem[mem_req_i.addr[17:2]];
   end
 
 endmodule

@@ -2,8 +2,9 @@ import common_pkg::*;
 
 module core (
   input logic clk_i, rst_i,
-  
-  output logic [XLEN-1:0] pc_o
+  input mem_rsp_t imem_rsp_i,
+
+  output mem_req_t imem_req_o
 );
   
   // Regfile instance
@@ -13,8 +14,8 @@ module core (
   logic [XLEN-1:0] rs1_data, rs2_data;
   
   regfile regfile_inst (
-    .clk(clk_i),
-    .rst(rst_i),
+    .clk_i(clk_i),
+    .rst_i(rst_i),
     .rs1_addr_i(rs1_addr),
     .rs2_addr_i(rs2_addr),
     .rd_addr_i(rd_addr),
@@ -30,14 +31,17 @@ module core (
   // IF stage instance
   if_id_t if_id;
   ctrl_if_t ctrl_if;
+  info_if_t info_if;
  
   stage_if stage_if_inst (
     .clk_i(clk_i),
     .rst_i(rst_i),
     .ctrl_if_i(ctrl_if),
+    .imem_rsp_i(imem_rsp_i),
     .pc_redirect_i(pc_redirect),
+    .imem_req_o(imem_req_o),
+    .info_if_o(info_if),
     .if_id_o(if_id),
-    .pc_o(pc_o)
   );
   
   // ID stage instance
@@ -75,10 +79,6 @@ module core (
   mem_wb_t mem_wb;
   ctrl_mem_t ctrl_mem;
   info_mem_t info_mem;
-
-  assign ctrl_ex.rd_addr_mem_fwd = info_mem.rd_addr_fwd;
-  assign ctrl_ex.rd_data_mem_fwd = info_mem.rd_data_fwd;
-  assign ctrl_ex.mem_valid = info_mem.valid;
   
   stage_mem stage_mem_inst (
     .clk(clk_i),
@@ -92,10 +92,6 @@ module core (
   // WB stage instance
   info_wb_t info_wb;
 
-  assign ctrl_ex.rd_addr_wb_fwd = rd_addr;
-  assign ctrl_ex.rd_data_wb_fwd = rd_data;
-  assign ctrl_ex.wb_valid = info_wb.valid;
-
   stage_wb stage_wb_inst (
     .clk(clk_i),
     .rst(rst_i),
@@ -106,25 +102,41 @@ module core (
     .info_wb_o(info_wb)
   );
   
+  // Control logic
+  assign ctrl_ex.rd_addr_mem_fwd = info_mem.rd_addr_fwd;
+  assign ctrl_ex.rd_data_mem_fwd = info_mem.rd_data_fwd;
+  assign ctrl_ex.mem_valid = info_mem.valid;
+
+  assign ctrl_ex.rd_addr_wb_fwd = rd_addr;
+  assign ctrl_ex.rd_data_wb_fwd = rd_data;
+  assign ctrl_ex.wb_valid = info_wb.valid;
+
   always_comb begin
-    if (info_id.load_use_hazard) begin
-      ctrl_if.stall_if = 1'b1;
-      ctrl_if.stall_hold_id = 1'b1;
-      ctrl_id.stall_bubble_ex = 1'b1;
-    end else begin
-      ctrl_if.stall_if = 1'b0;
-      ctrl_if.stall_hold_id = 1'b0;
-      ctrl_id.stall_bubble_ex = 1'b0;
-    end
+    ctrl_if.flush_if_id = 1'b0;
+    ctrl_id.flush_id_ex = 1'b0;
+    ctrl_ex.flush_ex_mem = 1'b0;
+
+    ctrl_if.stall_bubble_if_id = 1'b0;
+    ctrl_id.stall_bubble_id_ex = 1'b0;
+
+    ctrl_if.stall_hold_pc = 1'b0;
+    ctrl_if.stall_hold_if_id = 1'b0;
+
+    if (info_if.imem_req_inflight) begin
+      ctrl_if.stall_bubble_if_id = 1'b1;
+      ctrl_if.stall_hold_pc = 1'b1;
+    end 
 
     if (pc_redirect.valid) begin
-      ctrl_if.flush_id = 1'b1;
-      ctrl_id.flush_ex = 1'b1;
-      ctrl_ex.flush_mem = 1'b1;
-    end else begin
-      ctrl_if.flush_id = 1'b0;
-      ctrl_id.flush_ex = 1'b0;
-      ctrl_ex.flush_mem = 1'b0;
+      ctrl_if.flush_if_id = 1'b1;
+      ctrl_id.flush_id_ex = 1'b1;
+      ctrl_ex.flush_ex_mem = 1'b1;
+    end
+
+    if (info_id.load_use_hazard) begin
+      ctrl_id.stall_bubble_id_ex = 1'b1;
+      ctrl_if.stall_hold_pc = 1'b1;
+      ctrl_if.stall_hold_if_id = 1'b1;
     end
   end
   

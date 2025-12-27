@@ -50,13 +50,13 @@ module stage_id (
     info_id_o = '0;
     if ((id_ex_q.ctrl_signals.load_op != LOAD_INVALID) && ((rs1_addr_o == id_ex_q.rd_addr) || (rs2_addr_o == id_ex_q.rd_addr)) && id_ex_q.valid) begin
       info_id_o.load_use_hazard = 1'b1;
-      // fix to include check for x0 as rs1/rs1/rd and uses rs1/rs2
+      // fix to include check for x0 as rs1/rs2/rd and uses rs1/rs2
     end
     
     id_ex_d = id_ex_q;
-    if (ctrl_id_i.flush_ex) begin
+    if (ctrl_id_i.flush_id_ex) begin
       id_ex_d = '0;
-    end else if (ctrl_id_i.stall_bubble_ex) begin
+    end else if (ctrl_id_i.stall_bubble_id_ex) begin
       id_ex_d.valid = 1'b0;
     end else begin
       id_ex_d.valid = if_id_i.valid;
