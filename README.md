@@ -1,9 +1,10 @@
 # x1-core - A RISC-V RV32 SystemVerilog Core Design
 ## Overview:
-x1-core is a RV32I core written in SystemVerilog using Sigasi SVH/VS Code for design,
+x1-core is an unprivileged RV32I core written in SystemVerilog using Sigasi SVH/VS-Code for design,
 Quartus for compilation and Questa for simulation (with upcoming support for Xilinx/Vivado).
 ## Features:
 - Pipelined core with 5 stages: IF, ID, EX, MEM, WB
+- External imem support
 - Full RV32I implementation
 ## To-do:
 - Implement privilege

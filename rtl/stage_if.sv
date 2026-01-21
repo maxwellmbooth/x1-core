@@ -15,7 +15,7 @@ module stage_if (
   logic [XLEN-1:0] pc_q;
   logic [XLEN-1:0] pc_issued_q;
   logic pc_redirect_inflight;
-  logic pc_addr_next;
+  logic [XLEN-1:0] pc_addr_next;
 
   assign pc_addr_next = pc_redirect_i.valid? pc_redirect_i.target : pc_q;
   
@@ -27,14 +27,16 @@ module stage_if (
     .pc_o(pc_q)
   );
 
-  always_comb begin
+  // Insert bubble on PC redirect (but wait for imem response first)
+  always_ff @(posedge pc_redirect_i.valid or posedge clk_i) begin
     if (pc_redirect_i.valid) begin
-      pc_redirect_inflight = 1'b1;
+      pc_redirect_inflight <= 1'b1;
+    end else if (clk_i && pc_redirect_inflight && !info_if_o.imem_req_inflight) begin
+      pc_redirect_inflight <= 1'b0;
     end
   end
 
-
- always_ff @(posedge clk_i or posedge rst_i) begin
+  always_ff @(posedge clk_i or posedge rst_i) begin
     if (rst_i) begin
       pc_issued_q <= '0;
     end else if (pc_redirect_i.valid || !ctrl_if_i.stall_hold_pc) begin
@@ -79,7 +81,6 @@ module stage_if (
       if_id_d.valid = 1'b0;
     end else if (pc_redirect_inflight) begin
       if_id_d.valid = 1'b0;
-      pc_redirect_inflight = 1'b0;
     end else if (!ctrl_if_i.stall_hold_if_id && imem_rsp_i.valid) begin
       if_id_d.valid = 1'b1;
       if_id_d.pc = pc_issued_q;

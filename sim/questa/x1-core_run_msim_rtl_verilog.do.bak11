@@ -19,9 +19,9 @@ vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/
 vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/stage_wb.sv}
 vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/core.sv}
 
-vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb {C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/core_tb.sv}
+vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb {C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv}
 
-vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  core_tb
+vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  top_tb
 
 add wave *
 view structure

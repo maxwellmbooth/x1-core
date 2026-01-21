@@ -41,7 +41,7 @@ module core (
     .pc_redirect_i(pc_redirect),
     .imem_req_o(imem_req_o),
     .info_if_o(info_if),
-    .if_id_o(if_id),
+    .if_id_o(if_id)
   );
   
   // ID stage instance
@@ -115,6 +115,7 @@ module core (
     ctrl_if.flush_if_id = 1'b0;
     ctrl_id.flush_id_ex = 1'b0;
     ctrl_ex.flush_ex_mem = 1'b0;
+    ctrl_mem.flush_mem_wb = 1'b0;
 
     ctrl_if.stall_bubble_if_id = 1'b0;
     ctrl_id.stall_bubble_id_ex = 1'b0;
