@@ -2,9 +2,15 @@ import common_pkg::*;
 
 module core (
   input logic clk_i, rst_i,
+  input logic imem_rsp_valid_i,
+  input logic imem_req_ready_i,
   input mem_rsp_t imem_rsp_i,
+  input mem_rsp_t dmem_rsp_i,
 
-  output mem_req_t imem_req_o
+  output logic imem_req_valid_o,
+  output logic imem_rsp_ready_o,
+  output mem_req_t imem_req_o,
+  output mem_req_t dmem_req_o
 );
   
   // Regfile instance
@@ -37,8 +43,12 @@ module core (
     .clk_i(clk_i),
     .rst_i(rst_i),
     .ctrl_if_i(ctrl_if),
+    .imem_rsp_valid_i(imem_rsp_valid_i),
+    .imem_req_ready_i(imem_req_ready_i),
     .imem_rsp_i(imem_rsp_i),
     .pc_redirect_i(pc_redirect),
+    .imem_req_valid_o(imem_req_valid_o),
+    .imem_rsp_ready_o(imem_rsp_ready_o),
     .imem_req_o(imem_req_o),
     .info_if_o(info_if),
     .if_id_o(if_id)
@@ -71,6 +81,7 @@ module core (
     .rst_i(rst_i),
     .ctrl_ex_i(ctrl_ex),
     .id_ex_i(id_ex),
+    .pc_redirect_ready_i(pc_redirect_ready),
     .pc_redirect_o(pc_redirect),
     .ex_mem_o(ex_mem)
   );
@@ -85,6 +96,8 @@ module core (
     .rst(rst_i),
     .ctrl_mem_i(ctrl_mem),
     .ex_mem_i(ex_mem),
+    .dmem_rsp_i(dmem_rsp_i),
+    .dmem_req_o(dmem_req_o),
     .info_mem_o(info_mem),
     .mem_wb_o(mem_wb)
   );
@@ -122,6 +135,8 @@ module core (
 
     ctrl_if.stall_hold_pc = 1'b0;
     ctrl_if.stall_hold_if_id = 1'b0;
+    ctrl_id.stall_hold_id_ex = 1'b0;
+    ctrl_ex.stall_hold_pc_redirect = 1'b0;
 
     if (info_if.imem_req_inflight) begin
       ctrl_if.stall_bubble_if_id = 1'b1;
@@ -129,9 +144,14 @@ module core (
     end 
 
     if (pc_redirect.valid) begin
-      ctrl_if.flush_if_id = 1'b1;
-      ctrl_id.flush_id_ex = 1'b1;
-      ctrl_ex.flush_ex_mem = 1'b1;
+      if (info_if.pc_redirect_ready) begin
+        ctrl_if.flush_if_id = 1'b1;
+        ctrl_id.flush_id_ex = 1'b1;
+      end else begin
+        ctrl_if.flush_if_id = 1'b1;
+        ctrl_id.flush_id_ex = 1'b1;
+        ctrl_ex.stall_hold_pc_redirect = 1'b1;
+      end
     end
 
     if (info_id.load_use_hazard) begin

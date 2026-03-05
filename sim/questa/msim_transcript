@@ -33,28 +33,28 @@
 # 
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl/pkg {C:/Users/mboot/Projects/x1-core/rtl/pkg/common_pkg.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:20 on Jan 20,2026
+# Start time: 20:06:41 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl/pkg" C:/Users/mboot/Projects/x1-core/rtl/pkg/common_pkg.sv 
 # -- Compiling package common_pkg
 # 
 # Top level modules:
 # 	--none--
-# End time: 17:21:20 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:41 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/ram.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:20 on Jan 20,2026
+# Start time: 20:06:41 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/ram.sv 
 # -- Compiling package ram_sv_unit
 # -- Compiling module ram
 # 
 # Top level modules:
 # 	ram
-# End time: 17:21:20 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:41 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/regfile.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:20 on Jan 20,2026
+# Start time: 20:06:41 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/regfile.sv 
 # -- Compiling package regfile_sv_unit
 # -- Importing package common_pkg
@@ -62,11 +62,11 @@
 # 
 # Top level modules:
 # 	regfile
-# End time: 17:21:20 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:41 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/rom.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:21 on Jan 20,2026
+# Start time: 20:06:41 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/rom.sv 
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/rom.sv(10): (vlog-13314) Defaulting port 'mem_req_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling package rom_sv_unit
@@ -76,11 +76,11 @@
 # 
 # Top level modules:
 # 	rom
-# End time: 17:21:21 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:42 on Jan 25,2026, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 2
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/program_counter.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:21 on Jan 20,2026
+# Start time: 20:06:42 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/program_counter.sv 
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/program_counter.sv(6): (vlog-13314) Defaulting port 'pc_redirect_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling package program_counter_sv_unit
@@ -90,11 +90,11 @@
 # 
 # Top level modules:
 # 	program_counter
-# End time: 17:21:21 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:42 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 2
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/control_unit.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:21 on Jan 20,2026
+# Start time: 20:06:42 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/control_unit.sv 
 # -- Compiling package control_unit_sv_unit
 # -- Importing package common_pkg
@@ -102,11 +102,11 @@
 # 
 # Top level modules:
 # 	control_unit
-# End time: 17:21:21 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:42 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/alu.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:21 on Jan 20,2026
+# Start time: 20:06:42 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/alu.sv 
 # -- Compiling package alu_sv_unit
 # -- Importing package common_pkg
@@ -114,11 +114,11 @@
 # 
 # Top level modules:
 # 	alu
-# End time: 17:21:21 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:42 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/stage_if.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:21 on Jan 20,2026
+# Start time: 20:06:42 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/stage_if.sv 
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_if.sv(5): (vlog-13314) Defaulting port 'ctrl_if_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_if.sv(6): (vlog-13314) Defaulting port 'imem_rsp_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
@@ -132,11 +132,11 @@
 # 
 # Top level modules:
 # 	stage_if
-# End time: 17:21:21 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:42 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 6
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/stage_id.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:21 on Jan 20,2026
+# Start time: 20:06:42 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/stage_id.sv 
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_id.sv(5): (vlog-13314) Defaulting port 'ctrl_id_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_id.sv(6): (vlog-13314) Defaulting port 'if_id_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
@@ -148,11 +148,11 @@
 # 
 # Top level modules:
 # 	stage_id
-# End time: 17:21:21 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:42 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 4
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/stage_ex.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:22 on Jan 20,2026
+# Start time: 20:06:42 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/stage_ex.sv 
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_ex.sv(5): (vlog-13314) Defaulting port 'ctrl_ex_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_ex.sv(6): (vlog-13314) Defaulting port 'id_ex_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
@@ -164,27 +164,29 @@
 # 
 # Top level modules:
 # 	stage_ex
-# End time: 17:21:22 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:42 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 4
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:22 on Jan 20,2026
+# Start time: 20:06:43 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv 
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv(5): (vlog-13314) Defaulting port 'ctrl_mem_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv(6): (vlog-13314) Defaulting port 'ex_mem_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv(7): (vlog-13314) Defaulting port 'dmem_rsp_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling package stage_mem_sv_unit
 # -- Importing package common_pkg
 # -- Compiling module stage_mem
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv(5): (vlog-13314) Defaulting port 'ctrl_mem_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv(6): (vlog-13314) Defaulting port 'ex_mem_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv(7): (vlog-13314) Defaulting port 'dmem_rsp_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # 
 # Top level modules:
 # 	stage_mem
-# End time: 17:21:22 on Jan 20,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 4
+# End time: 20:06:43 on Jan 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 6
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/stage_wb.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:22 on Jan 20,2026
+# Start time: 20:06:43 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/stage_wb.sv 
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_wb.sv(5): (vlog-13314) Defaulting port 'mem_wb_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling package stage_wb_sv_unit
@@ -194,25 +196,27 @@
 # 
 # Top level modules:
 # 	stage_wb
-# End time: 17:21:22 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:43 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 2
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/core.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:22 on Jan 20,2026
+# Start time: 20:06:43 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/core.sv 
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/core.sv(5): (vlog-13314) Defaulting port 'imem_rsp_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: C:/Users/mboot/Projects/x1-core/rtl/core.sv(6): (vlog-13314) Defaulting port 'dmem_rsp_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling package core_sv_unit
 # -- Importing package common_pkg
 # -- Compiling module core
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/core.sv(5): (vlog-13314) Defaulting port 'imem_rsp_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: C:/Users/mboot/Projects/x1-core/rtl/core.sv(6): (vlog-13314) Defaulting port 'dmem_rsp_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # 
 # Top level modules:
 # 	core
-# End time: 17:21:22 on Jan 20,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 2
+# End time: 20:06:43 on Jan 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 4
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/top.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:22 on Jan 20,2026
+# Start time: 20:06:43 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/rtl" C:/Users/mboot/Projects/x1-core/rtl/top.sv 
 # -- Compiling package top_sv_unit
 # -- Importing package common_pkg
@@ -220,23 +224,23 @@
 # 
 # Top level modules:
 # 	top
-# End time: 17:21:22 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:43 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb {C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 17:21:22 on Jan 20,2026
+# Start time: 20:06:43 on Jan 25,2026
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb" C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv 
 # -- Compiling module top_tb
 # 
 # Top level modules:
 # 	top_tb
-# End time: 17:21:22 on Jan 20,2026, Elapsed time: 0:00:00
+# End time: 20:06:43 on Jan 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  top_tb
 # vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs=""+acc"" top_tb 
-# Start time: 17:21:23 on Jan 20,2026
+# Start time: 20:06:43 on Jan 25,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_ex.sv(5): (vopt-13314) Defaulting port 'ctrl_ex_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
@@ -247,12 +251,14 @@
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_id.sv(5): (vopt-13314) Defaulting port 'ctrl_id_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_id.sv(6): (vopt-13314) Defaulting port 'if_id_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/core.sv(5): (vopt-13314) Defaulting port 'imem_rsp_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: C:/Users/mboot/Projects/x1-core/rtl/core.sv(6): (vopt-13314) Defaulting port 'dmem_rsp_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv(5): (vopt-13314) Defaulting port 'ctrl_mem_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv(6): (vopt-13314) Defaulting port 'ex_mem_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv(7): (vopt-13314) Defaulting port 'dmem_rsp_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/stage_wb.sv(5): (vopt-13314) Defaulting port 'mem_wb_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/program_counter.sv(6): (vopt-13314) Defaulting port 'pc_redirect_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: C:/Users/mboot/Projects/x1-core/rtl/rom.sv(10): (vopt-13314) Defaulting port 'mem_req_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
-# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=14.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=16.
 # Loading sv_std.std
 # Loading work.top_tb(fast)
 # Loading work.common_pkg(fast)
@@ -283,14 +289,14 @@
 # Loading work.rom_sv_unit(fast)
 # Loading work.rom(fast)
 # ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 'addr_i'. The port definition is at: C:/Users/mboot/Projects/x1-core/rtl/ram.sv(9).
-#    Time: 0 ps  Iteration: 0  Instance: /top_tb/x1_inst/core_inst/stage_mem_inst/ram_inst File: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv Line: 21
+#    Time: 0 ps  Iteration: 0  Instance: /top_tb/x1_inst/core_inst/stage_mem_inst/ram_inst File: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv Line: 23
 # 
 # add wave *
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: mboot  Hostname: ZEUS  ProcessID: 41248
-#           Attempting to use alternate WLF file "./wlft3mwevi".
+#           Attempting to use alternate WLF file "./wlft27x1nd".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlft3mwevi
+#           Using alternate file: ./wlft27x1nd
 # view structure
 # .main_pane.structure.interior.cs.body.struct
 # view signals
@@ -299,15 +305,14 @@
 # ** Note: $stop    : C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv(25)
 #    Time: 1010 ns  Iteration: 0  Instance: /top_tb
 # Break in Module top_tb at C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv line 25
-add wave -position end  sim:/top_tb/x1_inst/core_inst/stage_if_inst/pc_q
-add wave -position end  sim:/top_tb/x1_inst/core_inst/stage_if_inst/imem_req_q
-add wave -position end  sim:/top_tb/x1_inst/core_inst/stage_if_inst/pc_issued_q
 add wave -position end  sim:/top_tb/x1_inst/core_inst/stage_if_inst/imem_rsp_i
-add wave -position end  sim:/top_tb/x1_inst/core_inst/stage_if_inst/if_id_o
+add wave -position end  sim:/top_tb/x1_inst/core_inst/stage_if_inst/imem_req_o
+add wave -position 2  sim:/top_tb/x1_inst/core_inst/stage_if_inst/pc_issued_q
+add wave -position 2  sim:/top_tb/x1_inst/core_inst/stage_if_inst/pc_q
 restart
 # ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
 # ** Note: (vsim-8009) Loading existing optimized design _opt5
-# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=14.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=16.
 # Loading work.top_tb(fast)
 # Loading work.common_pkg(fast)
 # Loading work.top_sv_unit(fast)
@@ -337,13 +342,13 @@ restart
 # Loading work.rom_sv_unit(fast)
 # Loading work.rom(fast)
 # ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 'addr_i'. The port definition is at: C:/Users/mboot/Projects/x1-core/rtl/ram.sv(9).
-#    Time: 0 ps  Iteration: 0  Instance: /top_tb/x1_inst/core_inst/stage_mem_inst/ram_inst File: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv Line: 21
-run 1000ns
-add wave -position end  sim:/top_tb/x1_inst/core_inst/regfile_inst/regs
+#    Time: 0 ps  Iteration: 0  Instance: /top_tb/x1_inst/core_inst/stage_mem_inst/ram_inst File: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv Line: 23
+run 1us
+add wave -position end  sim:/top_tb/x1_inst/core_inst/if_id
 restart
 # ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
 # ** Note: (vsim-8009) Loading existing optimized design _opt5
-# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=14.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=16.
 # Loading work.top_tb(fast)
 # Loading work.common_pkg(fast)
 # Loading work.top_sv_unit(fast)
@@ -373,5 +378,5 @@ restart
 # Loading work.rom_sv_unit(fast)
 # Loading work.rom(fast)
 # ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 'addr_i'. The port definition is at: C:/Users/mboot/Projects/x1-core/rtl/ram.sv(9).
-#    Time: 0 ps  Iteration: 0  Instance: /top_tb/x1_inst/core_inst/stage_mem_inst/ram_inst File: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv Line: 21
-run 1000ns
+#    Time: 0 ps  Iteration: 0  Instance: /top_tb/x1_inst/core_inst/stage_mem_inst/ram_inst File: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv Line: 23
+run 1us

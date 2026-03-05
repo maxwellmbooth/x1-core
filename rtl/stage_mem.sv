@@ -4,7 +4,9 @@ module stage_mem (
   input clk, rst,
   input ctrl_mem_t ctrl_mem_i,
   input ex_mem_t ex_mem_i,
+  input mem_rsp_t dmem_rsp_i,
   
+  output mem_req_t dmem_req_o,
   output info_mem_t info_mem_o,
   output mem_wb_t mem_wb_o
 );

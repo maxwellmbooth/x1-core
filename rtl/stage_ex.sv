@@ -4,6 +4,7 @@ module stage_ex (
   input logic clk_i, rst_i,
   input ctrl_ex_t ctrl_ex_i,
   input id_ex_t id_ex_i,
+  input logic pc_redirect_ready_i,
   
   output pc_redirect_t pc_redirect_o,
   output ex_mem_t ex_mem_o
@@ -54,8 +55,8 @@ module stage_ex (
     endcase
     
     // Branch redirect selection
-    if (ctrl_ex_i.flush_ex_mem) begin
-      pc_redirect_d = '0;
+    if (ctrl_ex_i.stall_hold_pc_redirect) begin
+      pc_redirect_d = pc_redirect_q;
     end else begin
       unique case (id_ex_i.ctrl_signals.branch_op)
         BRANCH_INVALID: begin

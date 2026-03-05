@@ -3,7 +3,7 @@ package common_pkg;
   parameter logic [XLEN-1:0] PC_RESET = 32'd0;
  
   // ENUMS
- 
+
   // RV32I opcodes
   typedef enum logic[6:0] {
     OP_LOAD = 7'b0000011,
@@ -101,7 +101,8 @@ package common_pkg;
 
   // Memory request
   typedef struct packed {
-    logic valid;
+    logic [3:0] epoch;
+    logic [3:0] id;
     logic we;
     logic [31:0] addr;
     logic [XLEN-1:0] wdata;
@@ -109,14 +110,15 @@ package common_pkg;
 
   // Memory response
   typedef struct packed {
-    logic valid;
-    logic ready;
+    logic [3:0] epoch;
+    logic [3:0] id;
     logic addr_invalid;
     logic [XLEN-1:0] rdata;
   } mem_rsp_t;
 
   // IF info
   typedef struct packed {
+    logic pc_redirect_ready;
     logic imem_req_inflight;
   } info_if_t;
 
@@ -148,11 +150,13 @@ package common_pkg;
   // ID control
   typedef struct packed {
     logic flush_id_ex;
+    logic stall_hold_id_ex;
     logic stall_bubble_id_ex;
   } ctrl_id_t;
   
   // EX control
   typedef struct packed {
+    logic stall_hold_pc_redirect;
     logic flush_ex_mem;
     logic [4:0] rd_addr_mem_fwd;
     logic [4:0] rd_addr_wb_fwd;

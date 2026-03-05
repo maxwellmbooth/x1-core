@@ -58,7 +58,7 @@ module stage_id (
       id_ex_d = '0;
     end else if (ctrl_id_i.stall_bubble_id_ex) begin
       id_ex_d.valid = 1'b0;
-    end else begin
+    end else if (!ctrl_id_i.stall_hold_id_ex) begin
       id_ex_d.valid = if_id_i.valid;
       id_ex_d.instr = if_id_i.instr;
       id_ex_d.pc = if_id_i.pc;

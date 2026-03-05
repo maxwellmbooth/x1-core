@@ -18,6 +18,7 @@ vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/
 vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv}
 vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/stage_wb.sv}
 vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/core.sv}
+vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/rtl {C:/Users/mboot/Projects/x1-core/rtl/top.sv}
 
 vlog -sv -work work +incdir+C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb {C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv}
 

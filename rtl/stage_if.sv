@@ -3,21 +3,25 @@ import common_pkg::*;
 module stage_if (
   input logic clk_i, rst_i,
   input ctrl_if_t ctrl_if_i,
+  input logic imem_rsp_valid_i,
+  input logic imem_req_ready_i,
   input mem_rsp_t imem_rsp_i,
   input pc_redirect_t pc_redirect_i,
 
+  output logic imem_req_valid_o,
+  output logic imem_rsp_ready_o,
   output mem_req_t imem_req_o,
   output info_if_t info_if_o,
   output if_id_t if_id_o
 );
-  
+
   // Program counter
   logic [XLEN-1:0] pc_q;
   logic [XLEN-1:0] pc_issued_q;
-  logic pc_redirect_inflight;
   logic [XLEN-1:0] pc_addr_next;
 
   assign pc_addr_next = pc_redirect_i.valid? pc_redirect_i.target : pc_q;
+  assign info_if_o.pc_redirect_ready = 1'b1;
   
   program_counter program_counter_inst (
     .clk_i(clk_i),
@@ -27,20 +31,25 @@ module stage_if (
     .pc_o(pc_q)
   );
 
-  // Insert bubble on PC redirect (but wait for imem response first)
-  always_ff @(posedge pc_redirect_i.valid or posedge clk_i) begin
-    if (pc_redirect_i.valid) begin
-      pc_redirect_inflight <= 1'b1;
-    end else if (clk_i && pc_redirect_inflight && !info_if_o.imem_req_inflight) begin
-      pc_redirect_inflight <= 1'b0;
-    end
-  end
-
   always_ff @(posedge clk_i or posedge rst_i) begin
     if (rst_i) begin
       pc_issued_q <= '0;
     end else if (pc_redirect_i.valid || !ctrl_if_i.stall_hold_pc) begin
       pc_issued_q <= pc_addr_next;
+    end
+  end
+
+  // Fetch request epoch/ID
+  logic [3:0] fetch_epoch_q;
+  logic [3:0] fetch_id_q;
+
+  always_ff @(posedge clk_i or posedge rst_i) begin
+    if (rst_i) begin
+      fetch_epoch_q <= '0;
+      fetch_id_q <= '0;
+    end else begin
+      fetch_epoch_q <= pc_redirect_i.valid? fetch_epoch_q + 4'd1 : fetch_epoch_q;
+      fetch_id_q <= fetch_id_q + 4'd1;
     end
   end
 
@@ -54,7 +63,8 @@ module stage_if (
       if (ctrl_if_i.flush_if_id || ctrl_if_i.stall_bubble_if_id) begin
         imem_req_d = '0;
       end else if (!ctrl_if_i.stall_hold_if_id) begin
-        imem_req_d.valid = 1'b1;
+        imem_req_d.epoch = fetch_epoch_q;
+        imem_req_d.id = fetch_id_q;
         imem_req_d.we = 1'b0;
         imem_req_d.addr = pc_addr_next;
         imem_req_d.wdata = 32'd0;
@@ -78,8 +88,6 @@ module stage_if (
     if (ctrl_if_i.flush_if_id) begin
       if_id_d = '0;
     end else if (ctrl_if_i.stall_bubble_if_id) begin
-      if_id_d.valid = 1'b0;
-    end else if (pc_redirect_inflight) begin
       if_id_d.valid = 1'b0;
     end else if (!ctrl_if_i.stall_hold_if_id && imem_rsp_i.valid) begin
       if_id_d.valid = 1'b1;
