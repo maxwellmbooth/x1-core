@@ -1,0 +1,1 @@
+`imem_req_fire`/ `imem_rsp_fire` change when request/response is accepted (e.g. when consumer is ready) so it can update in the middle of a cycle

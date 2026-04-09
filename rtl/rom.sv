@@ -25,6 +25,7 @@ module rom (
   always_ff @(posedge clk_i) begin
     mem_rsp_valid_o <= mem_req_valid_i;
 
+    mem_rsp_o.epoch <= mem_req_i.epoch;
     mem_rsp_o.id <= mem_req_i.id;
     mem_rsp_o.addr_invalid <= 1'b0;
     mem_rsp_o.rdata <= mem[mem_req_i.addr[17:2]];

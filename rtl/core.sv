@@ -81,7 +81,6 @@ module core (
     .rst_i(rst_i),
     .ctrl_ex_i(ctrl_ex),
     .id_ex_i(id_ex),
-    .pc_redirect_ready_i(pc_redirect_ready),
     .pc_redirect_o(pc_redirect),
     .ex_mem_o(ex_mem)
   );
@@ -136,7 +135,6 @@ module core (
     ctrl_if.stall_hold_pc = 1'b0;
     ctrl_if.stall_hold_if_id = 1'b0;
     ctrl_id.stall_hold_id_ex = 1'b0;
-    ctrl_ex.stall_hold_pc_redirect = 1'b0;
 
     if (info_if.imem_req_inflight) begin
       ctrl_if.stall_bubble_if_id = 1'b1;
@@ -144,14 +142,8 @@ module core (
     end 
 
     if (pc_redirect.valid) begin
-      if (info_if.pc_redirect_ready) begin
-        ctrl_if.flush_if_id = 1'b1;
-        ctrl_id.flush_id_ex = 1'b1;
-      end else begin
-        ctrl_if.flush_if_id = 1'b1;
-        ctrl_id.flush_id_ex = 1'b1;
-        ctrl_ex.stall_hold_pc_redirect = 1'b1;
-      end
+      ctrl_if.flush_if_id = 1'b1;
+      ctrl_id.flush_id_ex = 1'b1;
     end
 
     if (info_id.load_use_hazard) begin

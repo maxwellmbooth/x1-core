@@ -1,4 +1,4 @@
-# Generated Quartus folders
+# Quartus
 fpga/intel/quartus/db/
 fpga/intel/quartus/incremental_db/
 fpga/intel/quartus/output_files/
@@ -6,14 +6,22 @@ fpga/intel/quartus/simulation/
 
 fpga/intel/quartus/.qsys_edit/
 
-# Non-important generated VS Code files
-other/hexgen/.vscode
-
-# Quartus backup/user setting files
 *.qws
 *.bak
 *.rpt
 *.o
 
-# Other files
+# VS Code
+.vscode
+other/hexgen/.vscode
+
+# Obsidian
+docs/.obsidian
+
+# Sigasi
+.settings
+
+# Misc
+.DS_Store
+other
 compush.bat

@@ -118,7 +118,6 @@ package common_pkg;
 
   // IF info
   typedef struct packed {
-    logic pc_redirect_ready;
     logic imem_req_inflight;
   } info_if_t;
 
@@ -156,7 +155,6 @@ package common_pkg;
   
   // EX control
   typedef struct packed {
-    logic stall_hold_pc_redirect;
     logic flush_ex_mem;
     logic [4:0] rd_addr_mem_fwd;
     logic [4:0] rd_addr_wb_fwd;
