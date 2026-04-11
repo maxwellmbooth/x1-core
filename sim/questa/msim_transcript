@@ -303,3 +303,78 @@
 # ** Note: $stop    : C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv(25)
 #    Time: 1010 ns  Iteration: 0  Instance: /top_tb
 # Break in Module top_tb at C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv line 25
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt6
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=15.
+# Loading work.top_tb(fast)
+# Loading work.common_pkg(fast)
+# Loading work.top_sv_unit(fast)
+# Loading work.top(fast)
+# Loading work.core_sv_unit(fast)
+# Loading work.core(fast)
+# Loading work.regfile_sv_unit(fast)
+# Loading work.regfile(fast)
+# Loading work.stage_if_sv_unit(fast)
+# Loading work.stage_if(fast)
+# Loading work.program_counter_sv_unit(fast)
+# Loading work.program_counter(fast)
+# Loading work.stage_id_sv_unit(fast)
+# Loading work.stage_id(fast)
+# Loading work.control_unit_sv_unit(fast)
+# Loading work.control_unit(fast)
+# Loading work.stage_ex_sv_unit(fast)
+# Loading work.stage_ex(fast)
+# Loading work.alu_sv_unit(fast)
+# Loading work.alu(fast)
+# Loading work.stage_mem_sv_unit(fast)
+# Loading work.stage_mem(fast)
+# Loading work.ram_sv_unit(fast)
+# Loading work.ram(fast)
+# Loading work.stage_wb_sv_unit(fast)
+# Loading work.stage_wb(fast)
+# Loading work.rom_sv_unit(fast)
+# Loading work.rom(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 'addr_i'. The port definition is at: C:/Users/mboot/Projects/x1-core/rtl/ram.sv(9).
+#    Time: 0 ps  Iteration: 0  Instance: /top_tb/x1_inst/core_inst/stage_mem_inst/ram_inst File: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv Line: 23
+run 1us
+add wave -position end  sim:/top_tb/x1_inst/core_inst/stage_if_inst/if_id_o
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt6
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=15.
+# Loading work.top_tb(fast)
+# Loading work.common_pkg(fast)
+# Loading work.top_sv_unit(fast)
+# Loading work.top(fast)
+# Loading work.core_sv_unit(fast)
+# Loading work.core(fast)
+# Loading work.regfile_sv_unit(fast)
+# Loading work.regfile(fast)
+# Loading work.stage_if_sv_unit(fast)
+# Loading work.stage_if(fast)
+# Loading work.program_counter_sv_unit(fast)
+# Loading work.program_counter(fast)
+# Loading work.stage_id_sv_unit(fast)
+# Loading work.stage_id(fast)
+# Loading work.control_unit_sv_unit(fast)
+# Loading work.control_unit(fast)
+# Loading work.stage_ex_sv_unit(fast)
+# Loading work.stage_ex(fast)
+# Loading work.alu_sv_unit(fast)
+# Loading work.alu(fast)
+# Loading work.stage_mem_sv_unit(fast)
+# Loading work.stage_mem(fast)
+# Loading work.ram_sv_unit(fast)
+# Loading work.ram(fast)
+# Loading work.stage_wb_sv_unit(fast)
+# Loading work.stage_wb(fast)
+# Loading work.rom_sv_unit(fast)
+# Loading work.rom(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 'addr_i'. The port definition is at: C:/Users/mboot/Projects/x1-core/rtl/ram.sv(9).
+#    Time: 0 ps  Iteration: 0  Instance: /top_tb/x1_inst/core_inst/stage_mem_inst/ram_inst File: C:/Users/mboot/Projects/x1-core/rtl/stage_mem.sv Line: 23
+run 1us
+add wave -position end  sim:/top_tb/x1_inst/core_inst/stage_if_inst/imem_epoch_match
+add wave -position end  sim:/top_tb/x1_inst/core_inst/stage_if_inst/imem_rsp_valid_i
+add wave -position end  sim:/top_tb/x1_inst/core_inst/stage_if_inst/ctrl_if_i.stall_hold_pc
+add wave -position end  sim:/top_tb/x1_inst/core_inst/stage_if_inst/ctrl_if_i.stall_bubble_if_id
