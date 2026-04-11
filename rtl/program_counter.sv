@@ -3,7 +3,7 @@ import common_pkg::*;
 module program_counter (
   input logic clk_i, rst_i,
   input logic pc_we_i,
-  input logic pc_next_i,
+  input logic [XLEN-1:0] pc_next_i,
   
   output logic [XLEN-1:0] pc_o
 );

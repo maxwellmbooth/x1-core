@@ -9,3 +9,6 @@ Quartus for compilation and Questa for simulation (with upcoming support for Xil
 ## Other information
 ### NOP
 NOP is implemented as `addi x0, x0, 0` (`0x00000013`)
+
+## Documentation
+See [docs/main.md](docs/main.md) for full documentation index.

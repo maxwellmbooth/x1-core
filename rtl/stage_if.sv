@@ -15,9 +15,12 @@ module stage_if (
   output if_id_t if_id_o
 );
 
-  // Fetch request epoch/ID
+  // Global IMEM values
   logic [3:0] fetch_epoch_q;
   logic [3:0] fetch_id_d, fetch_id_q;
+
+  wire imem_req_accepted = imem_req_valid_o && imem_req_ready_i; // IMEM request accepted this cycle
+  wire imem_rsp_accepted = imem_rsp_valid_i && imem_rsp_ready_o; // IMEM response accepted this cycle
 
   // Program counter
   logic [XLEN-1:0] pc_q;
@@ -79,8 +82,6 @@ module stage_if (
   logic imem_req_valid_d, imem_req_valid_q;
 
   logic imem_req_inflight_d, imem_req_inflight_q;
-  wire imem_req_accepted = imem_req_valid_o && imem_req_ready_i; // IMEM request accepted this cycle
-  wire imem_rsp_accepted = imem_rsp_valid_i && imem_rsp_ready_o; // IMEM response accepted this cycle
   
   wire imem_req_has_space = !imem_req_inflight_q || imem_rsp_accepted;
   wire imem_req_issue = (!imem_req_valid_q || imem_req_accepted) && imem_req_has_space && !ctrl_if_i.flush_if_id && !ctrl_if_i.stall_bubble_if_id && !ctrl_if_i.stall_hold_if_id;

@@ -21,6 +21,10 @@ docs/.obsidian
 # Sigasi
 .settings
 
+# Claude
+.claude
+CLAUDE.md
+
 # Misc
 .DS_Store
 other

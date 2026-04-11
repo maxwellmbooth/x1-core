@@ -31,4 +31,7 @@ module rom (
     mem_rsp_o.rdata <= mem[mem_req_i.addr[17:2]];
   end
 
+  assign mem_req_ready_o = 1'b1;
+  assign mem_rsp_ready_i = 1'b1;
+
 endmodule
