@@ -136,11 +136,6 @@ module core (
     ctrl_if.stall_hold_if_id = 1'b0;
     ctrl_id.stall_hold_id_ex = 1'b0;
 
-    if (info_if.imem_req_inflight) begin // this is stale code
-      ctrl_if.stall_bubble_if_id = 1'b1;
-      ctrl_if.stall_hold_pc = 1'b1;
-    end 
-
     if (pc_redirect.valid) begin
       ctrl_if.flush_if_id = 1'b1;
       ctrl_id.flush_id_ex = 1'b1;

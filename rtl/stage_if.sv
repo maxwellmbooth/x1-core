@@ -72,7 +72,7 @@ module stage_if (
     if (rst_i) begin
       pc_issued_q <= '0;
     end else if (!ctrl_if_i.stall_hold_pc) begin
-      pc_issued_q <= pc_next;
+      pc_issued_q <= pc_q;
     end
   end
 
@@ -139,10 +139,14 @@ module stage_if (
       if_id_d = '0;
     end else if (ctrl_if_i.stall_bubble_if_id) begin
       if_id_d.valid = 1'b0;
-    end else if (!ctrl_if_i.stall_hold_if_id && imem_rsp_valid_i && imem_epoch_match) begin
-      if_id_d.valid = 1'b1;
-      if_id_d.pc = pc_issued_q;
-      if_id_d.instr = imem_rsp_i.rdata;
+    end else if (!ctrl_if_i.stall_hold_if_id) begin
+      if (imem_rsp_valid_i && imem_epoch_match) begin
+        if_id_d.valid = 1'b1;
+        if_id_d.pc = pc_issued_q;
+        if_id_d.instr = imem_rsp_i.rdata;
+      end else begin
+        if_id_d.valid = 1'b0; // bubble if memory not ready
+      end
     end
   end
   
