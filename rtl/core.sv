@@ -139,6 +139,7 @@ module core (
     if (pc_redirect.valid) begin
       ctrl_if.flush_if_id = 1'b1;
       ctrl_id.flush_id_ex = 1'b1;
+      ctrl_ex.flush_ex_mem = 1'b1;
     end
 
     if (info_id.load_use_hazard) begin

@@ -23,9 +23,9 @@ module alu (
       ALU_SLL: q_o = a_i << b_i[4:0];
       ALU_SRL: q_o = a_i >> b_i[4:0];
       ALU_SRA: q_o = a_i >>> b_i[4:0];
-      ALU_OR: q_o = a_i || b_i;
+      ALU_OR: q_o = a_i | b_i;
       ALU_XOR: q_o = a_i ^ b_i;
-      ALU_AND: q_o = a_i && b_i;
+      ALU_AND: q_o = a_i & b_i;
       default: q_o = 32'd0;
     endcase
   end

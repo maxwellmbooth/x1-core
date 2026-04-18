@@ -32,8 +32,8 @@ module stage_mem (
   always_comb begin
     unique case (ex_mem_i.ctrl_signals.store_op)
       STORE_INVALID: data_in = 'd0;
-      STORE_BYTE: data_in = ex_mem_i.rs2_data[7:0];
-      STORE_HALF: data_in = ex_mem_i.rs2_data[15:0];
+      STORE_BYTE: data_in = {24'd0, ex_mem_i.rs2_data[7:0]};
+      STORE_HALF: data_in = {16'd0, ex_mem_i.rs2_data[15:0]};
       STORE_WORD: data_in = ex_mem_i.rs2_data;
       default: data_in = 'd0;
     endcase
@@ -48,7 +48,7 @@ module stage_mem (
         info_mem_o.rd_data_fwd = ex_mem_i.imm;
       end
       RD_SEL_MEM: begin
-        info_mem_o.rd_data_fwd = 31'd0;
+        info_mem_o.rd_data_fwd = 32'd0;
       end
       RD_SEL_PC: begin 
         info_mem_o.rd_data_fwd = ex_mem_i.pc;

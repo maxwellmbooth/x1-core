@@ -5,7 +5,7 @@ parameter int ROM_DATA_WIDTH = 32;
 parameter int ROM_DEPTH = 1 << ROM_ADDR_WIDTH;
 
 
-module rom (
+module rom #(parameter string HEX_FILE = "../prog.hex") (
   input logic clk_i,
   input logic mem_req_valid_i,
   input logic mem_rsp_ready_i,
@@ -19,7 +19,7 @@ module rom (
   logic [ROM_DATA_WIDTH-1:0] mem [0:ROM_DEPTH-1];
   
   initial begin
-    $readmemh("../program.hex", mem);
+    $readmemh(HEX_FILE, mem);
   end
   
   always_ff @(posedge clk_i) begin
@@ -32,6 +32,5 @@ module rom (
   end
 
   assign mem_req_ready_o = 1'b1;
-  assign mem_rsp_ready_i = 1'b1;
 
 endmodule

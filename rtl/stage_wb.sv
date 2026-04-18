@@ -20,9 +20,9 @@ module stage_wb (
     unique case (mem_wb_i.ctrl_signals.load_op)
       LOAD_INVALID: mem_data = 'd0;
       LOAD_BYTE: mem_data = {{24{mem_wb_i.mem_data[7]}}, mem_wb_i.mem_data[7:0]};
-      LOAD_BYTEU: mem_data = mem_wb_i.mem_data[7:0];
+      LOAD_BYTEU: mem_data = {24'd0, mem_wb_i.mem_data[7:0]};
       LOAD_HALF: mem_data = {{16{mem_wb_i.mem_data[7]}}, mem_wb_i.mem_data[15:0]};
-      LOAD_HALFU: mem_data = mem_wb_i.mem_data[15:0];
+      LOAD_HALFU: mem_data = {16'd0, mem_wb_i.mem_data[15:0]};
       LOAD_WORD: mem_data = mem_wb_i.mem_data;
       default: mem_data = 'd0;
     endcase

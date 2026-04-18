@@ -13,6 +13,10 @@ R0
 R1
 R0
 R1
+R0
+R1
+R0
+R1
 Z2 !s12c _opt5
 R1
 R2
@@ -192,10 +196,10 @@ n@_opt5
 R15
 R7
 T_opt6
-!s110 1775999810
-V>E<9P6C]IKLC79AWDCE]W2
+!s110 1776528375
+VZGbJah<In03mLZQoe[gXd1
 R16
-=1-c40f08194281-69db9b42-51-2ea8
+=1-c40f08194281-69e3abf6-344-bb7c
 R1
 R9
 R10
@@ -210,7 +214,7 @@ Z18 2C:/Users/mboot/Projects/x1-core/rtl/alu.sv
 Z19 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
 Z20 DXx4 work 10 common_pkg 0 22 oi=a[I>]6>;WlE6H6@zUn0
 DXx4 work 11 alu_sv_unit 0 22 Ck5UWlMKWQ6SMA9>9J@eY1
-Z21 !s110 1775999807
+Z21 !s110 1776528372
 Z22 VDg1SIo80bB@j0V0VzS_@n1
 r1
 !s85 0
@@ -227,7 +231,7 @@ Z25 FC:/Users/mboot/Projects/x1-core/rtl/alu.sv
 L0 3 32
 Z26 OL;L;2024.3;79
 31
-Z27 !s108 1775999807.000000
+Z27 !s108 1776528372.000000
 Z28 !s107 C:/Users/mboot/Projects/x1-core/rtl/alu.sv|
 Z29 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/mboot/Projects/x1-core/rtl|C:/Users/mboot/Projects/x1-core/rtl/alu.sv|
 !i113 0
@@ -265,7 +269,7 @@ R14
 Xcommon_pkg
 2C:/Users/mboot/Projects/x1-core/rtl/pkg/common_pkg.sv
 R19
-Z33 !s110 1775999806
+Z33 !s110 1776528371
 !i10b 1
 !s100 ;0NO?eb`cm8kLAA<=0YX[0
 Ioi=a[I>]6>;WlE6H6@zUn0
@@ -281,7 +285,7 @@ R26
 r1
 !s85 0
 31
-Z34 !s108 1775999806.000000
+Z34 !s108 1776528371.000000
 !s107 C:/Users/mboot/Projects/x1-core/rtl/pkg/common_pkg.sv|
 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/mboot/Projects/x1-core/rtl/pkg|C:/Users/mboot/Projects/x1-core/rtl/pkg/common_pkg.sv|
 !i113 0
@@ -349,25 +353,25 @@ vcore
 Z41 2C:/Users/mboot/Projects/x1-core/rtl/core.sv
 R19
 R20
-DXx4 work 12 core_sv_unit 0 22 mBXZ:aWPcTXOI;l9nD>1I1
-Z42 !s110 1775999808
+DXx4 work 12 core_sv_unit 0 22 ZIRQDzS@OXbDiiI^CzC5>3
+Z42 !s110 1776528373
 R22
 r1
 !s85 0
 !i10b 1
-!s100 YO3R<Xb:H<FD<ek]V673O2
-ISM1dI?jN?^Of^[^1MKU4n0
+!s100 A79OTISzcC69;mhUg[S=73
+IVUE?;WaaSJahmNR0KLNAk1
 !s105 core_sv_unit
 S1
 R7
-Z43 w1775997642
+Z43 w1776528341
 Z44 8C:/Users/mboot/Projects/x1-core/rtl/core.sv
 Z45 FC:/Users/mboot/Projects/x1-core/rtl/core.sv
 !i122 12
-L0 3 149
+L0 3 150
 R26
 31
-Z46 !s108 1775999808.000000
+Z46 !s108 1776528373.000000
 Z47 !s107 C:/Users/mboot/Projects/x1-core/rtl/core.sv|
 Z48 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/mboot/Projects/x1-core/rtl|C:/Users/mboot/Projects/x1-core/rtl/core.sv|
 !i113 0
@@ -379,12 +383,12 @@ R41
 R19
 R20
 R42
-VmBXZ:aWPcTXOI;l9nD>1I1
+VZIRQDzS@OXbDiiI^CzC5>3
 r1
 !s85 0
 !i10b 1
-!s100 9hhgk;KJY>RC4TB2?N@A]0
-ImBXZ:aWPcTXOI;l9nD>1I1
+!s100 m]>^Z:GZ0G6?HCGDnLc@12
+IZIRQDzS@OXbDiiI^CzC5>3
 !i103 1
 S1
 R7
@@ -581,19 +585,19 @@ R22
 r1
 !s85 0
 !i10b 1
-!s100 3@e1Boa06P5`FlFA@UfBd0
-I<b0FC0=f7^SzjG<il<ikZ0
+!s100 D9M<7GFGQn=hB>HK`@e1L1
+IH17Sb^Sgg2Di3`7IL=[UW1
 !s105 rom_sv_unit
 S1
 R7
-Z68 w1775930737
+Z68 w1776517810
 Z69 8C:/Users/mboot/Projects/x1-core/rtl/rom.sv
 Z70 FC:/Users/mboot/Projects/x1-core/rtl/rom.sv
 !i122 3
 L0 8 30
 R26
 31
-R34
+R27
 Z71 !s107 C:/Users/mboot/Projects/x1-core/rtl/rom.sv|
 Z72 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/mboot/Projects/x1-core/rtl|C:/Users/mboot/Projects/x1-core/rtl/rom.sv|
 !i113 0
@@ -621,7 +625,7 @@ R70
 R32
 R26
 31
-R34
+R27
 R71
 R72
 !i113 0
@@ -632,22 +636,22 @@ vstage_ex
 Z73 2C:/Users/mboot/Projects/x1-core/rtl/stage_ex.sv
 R19
 R20
-DXx4 work 16 stage_ex_sv_unit 0 22 3ZZfEn8Hkghcce3h>^K4Q1
+DXx4 work 16 stage_ex_sv_unit 0 22 aEiGILY5c_>M81kJhYlF60
 R42
 R22
 r1
 !s85 0
 !i10b 1
-!s100 m9:A3>2Zod1]m2?[R4M5;0
-IBH[?5z4Y6?^Nk2C3]K>QN3
+!s100 N6MADA9W6nC[c_F0^^7S21
+I7[H5d8gXKkY5h>3M<KkbI2
 !s105 stage_ex_sv_unit
 S1
 R7
-Z74 w1775997658
+Z74 w1776528322
 Z75 8C:/Users/mboot/Projects/x1-core/rtl/stage_ex.sv
 Z76 FC:/Users/mboot/Projects/x1-core/rtl/stage_ex.sv
 !i122 9
-L0 3 130
+L0 3 142
 R26
 31
 R46
@@ -662,12 +666,12 @@ R73
 R19
 R20
 R42
-V3ZZfEn8Hkghcce3h>^K4Q1
+VaEiGILY5c_>M81kJhYlF60
 r1
 !s85 0
 !i10b 1
-!s100 H<[ke22e<DXbm2NImH:4T2
-I3ZZfEn8Hkghcce3h>^K4Q1
+!s100 zC43hR1bFQ7B`6Nlh[KPi0
+IaEiGILY5c_>M81kJhYlF60
 !i103 1
 S1
 R7
@@ -690,7 +694,7 @@ Z79 2C:/Users/mboot/Projects/x1-core/rtl/stage_id.sv
 R19
 R20
 DXx4 work 16 stage_id_sv_unit 0 22 f@3gi>lV9RSNRQ[]>1_Qi1
-R21
+R42
 R22
 r1
 !s85 0
@@ -700,14 +704,14 @@ Im44XcW^4zUT@REDm<mLI51
 !s105 stage_id_sv_unit
 S1
 R7
-Z80 w1769514500
+Z80 w1776527814
 Z81 8C:/Users/mboot/Projects/x1-core/rtl/stage_id.sv
 Z82 FC:/Users/mboot/Projects/x1-core/rtl/stage_id.sv
 !i122 8
 L0 3 84
 R26
 31
-R27
+R46
 Z83 !s107 C:/Users/mboot/Projects/x1-core/rtl/stage_id.sv|
 Z84 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/mboot/Projects/x1-core/rtl|C:/Users/mboot/Projects/x1-core/rtl/stage_id.sv|
 !i113 0
@@ -718,7 +722,7 @@ Xstage_id_sv_unit
 R79
 R19
 R20
-R21
+R42
 Vf@3gi>lV9RSNRQ[]>1_Qi1
 r1
 !s85 0
@@ -735,7 +739,7 @@ R82
 R32
 R26
 31
-R27
+R46
 R83
 R84
 !i113 0
@@ -757,7 +761,7 @@ I:17l<YAL@ZI`0:NKIFA]b3
 !s105 stage_if_sv_unit
 S1
 R7
-Z86 w1775999749
+Z86 w1776252567
 Z87 8C:/Users/mboot/Projects/x1-core/rtl/stage_if.sv
 Z88 FC:/Users/mboot/Projects/x1-core/rtl/stage_if.sv
 !i122 7
@@ -918,7 +922,7 @@ Z103 2C:/Users/mboot/Projects/x1-core/rtl/top.sv
 R19
 R20
 DXx4 work 11 top_sv_unit 0 22 SCiIPgU[DWJ^<m:BdFBV:0
-R42
+Z104 !s110 1776528374
 R22
 r1
 !s85 0
@@ -928,16 +932,16 @@ IUizG86F=i`Uk[cbf3Dm<z3
 !s105 top_sv_unit
 S1
 R7
-Z104 w1770923590
-Z105 8C:/Users/mboot/Projects/x1-core/rtl/top.sv
-Z106 FC:/Users/mboot/Projects/x1-core/rtl/top.sv
+Z105 w1776251563
+Z106 8C:/Users/mboot/Projects/x1-core/rtl/top.sv
+Z107 FC:/Users/mboot/Projects/x1-core/rtl/top.sv
 !i122 13
 L0 3 54
 R26
 31
-R46
-Z107 !s107 C:/Users/mboot/Projects/x1-core/rtl/top.sv|
-Z108 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/mboot/Projects/x1-core/rtl|C:/Users/mboot/Projects/x1-core/rtl/top.sv|
+Z108 !s108 1776528374.000000
+Z109 !s107 C:/Users/mboot/Projects/x1-core/rtl/top.sv|
+Z110 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/mboot/Projects/x1-core/rtl|C:/Users/mboot/Projects/x1-core/rtl/top.sv|
 !i113 0
 R30
 R31
@@ -946,7 +950,7 @@ Xtop_sv_unit
 R103
 R19
 R20
-R42
+R104
 VSCiIPgU[DWJ^<m:BdFBV:0
 r1
 !s85 0
@@ -956,16 +960,16 @@ ISCiIPgU[DWJ^<m:BdFBV:0
 !i103 1
 S1
 R7
-R104
 R105
 R106
+R107
 !i122 13
 R32
 R26
 31
-R46
-R107
 R108
+R109
+R110
 !i113 0
 R30
 R31
@@ -973,13 +977,13 @@ R14
 vtop_tb
 2C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv
 R19
-!s110 1775999809
+R104
 !i10b 1
 !s100 7El?27kCPYJLGNY=:h94F1
 I]BR9Cl0doKZ^=a:?hlPVQ1
 S1
 R7
-w1766796959
+w1776251483
 8C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv
 FC:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv
 !i122 14
@@ -989,7 +993,7 @@ R26
 r1
 !s85 0
 31
-!s108 1775999809.000000
+R108
 !s107 C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv|
 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb|C:/Users/mboot/Projects/x1-core/fpga/intel/quartus/../../../tb/top_tb.sv|
 !i113 0

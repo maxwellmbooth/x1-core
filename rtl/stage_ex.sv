@@ -30,14 +30,22 @@ module stage_ex (
 
   always_comb begin
     // Data forwarding from MEM/WB for rs1/rs2
-    if (ctrl_ex_i.rd_addr_mem_fwd == id_ex_i.rs1_addr && ctrl_ex_i.mem_valid) rs1_data = ctrl_ex_i.rd_data_mem_fwd;
-    else if (ctrl_ex_i.rd_addr_wb_fwd == id_ex_i.rs1_addr && ctrl_ex_i.wb_valid) rs1_data = ctrl_ex_i.rd_data_wb_fwd;
-    else rs1_data = id_ex_i.rs1_data;
+    if (ctrl_ex_i.rd_addr_mem_fwd == id_ex_i.rs1_addr && ctrl_ex_i.mem_valid) begin
+      rs1_data = ctrl_ex_i.rd_data_mem_fwd;
+    end else if (ctrl_ex_i.rd_addr_wb_fwd == id_ex_i.rs1_addr && ctrl_ex_i.wb_valid) begin
+      rs1_data = ctrl_ex_i.rd_data_wb_fwd;
+    end else begin 
+      rs1_data = id_ex_i.rs1_data;
+    end
     
-    if (ctrl_ex_i.rd_addr_mem_fwd == id_ex_i.rs2_addr && ctrl_ex_i.mem_valid) rs2_data = ctrl_ex_i.rd_data_mem_fwd;
-    else if (ctrl_ex_i.rd_addr_wb_fwd == id_ex_i.rs2_addr && ctrl_ex_i.wb_valid) rs2_data = ctrl_ex_i.rd_data_wb_fwd;
-    else rs2_data = id_ex_i.rs2_data;
-    
+    if (ctrl_ex_i.rd_addr_mem_fwd == id_ex_i.rs2_addr && ctrl_ex_i.mem_valid) begin
+      rs2_data = ctrl_ex_i.rd_data_mem_fwd;
+    end else if (ctrl_ex_i.rd_addr_wb_fwd == id_ex_i.rs2_addr && ctrl_ex_i.wb_valid) begin
+      rs2_data = ctrl_ex_i.rd_data_wb_fwd;
+    end else begin 
+      rs2_data = id_ex_i.rs2_data;
+    end
+
     // ALU A input selection
     unique case (id_ex_i.ctrl_signals.alu_a_sel)
       ALU_A_SEL_RS1: alu_a = rs1_data;
@@ -49,57 +57,61 @@ module stage_ex (
     unique case (id_ex_i.ctrl_signals.alu_b_sel)
       ALU_B_SEL_RS2: alu_b = rs2_data;
       ALU_B_SEL_IMM: alu_b = id_ex_i.imm;
-      ALU_B_SEL_SHAMT: alu_b = id_ex_i.shamt;
+      ALU_B_SEL_SHAMT: alu_b = {27'd0, id_ex_i.shamt};
       default: alu_b = rs2_data;
     endcase
     
     // Branch redirect selection
-    unique case (id_ex_i.ctrl_signals.branch_op)
-      BRANCH_INVALID: begin
-        pc_redirect_d = '0;
-      end
-      
-      BEQ: begin
-        pc_redirect_d.valid = alu_eq && id_ex_i.valid;
-        pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
-      end
-      
-      BNE: begin
-        pc_redirect_d.valid = !alu_eq && id_ex_i.valid;
-        pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
-      end
-      
-      BLT: begin
-        pc_redirect_d.valid = alu_lt && id_ex_i.valid;
-        pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
-      end
-      
-      BGE: begin
-        pc_redirect_d.valid = !alu_lt && id_ex_i.valid;
-        pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
-      end
-      
-      BLTU: begin
-        pc_redirect_d.valid = alu_ltu && id_ex_i.valid;
-        pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
-      end
-      
-      BGEU: begin
-        pc_redirect_d.valid = !alu_ltu && id_ex_i.valid;
-        pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
-      end
-      
-      JAL: begin
-        pc_redirect_d.valid = id_ex_i.valid;
-        pc_redirect_d.target = alu_q;
-      end
-      
-      JALR: begin
-        pc_redirect_d.valid = id_ex_i.valid;
-        pc_redirect_d.target = alu_q;
-      end
-      default: pc_redirect_d = '0;
-    endcase
+    if (pc_redirect_q.valid) begin
+      pc_redirect_d.valid = 1'b0; // prevent next redirect from happening if branch taken
+    end else begin
+      unique case (id_ex_i.ctrl_signals.branch_op)
+        BRANCH_INVALID: begin
+          pc_redirect_d = '0;
+        end
+        
+        BEQ: begin
+          pc_redirect_d.valid = alu_eq && id_ex_i.valid;
+          pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
+        end
+        
+        BNE: begin
+          pc_redirect_d.valid = !alu_eq && id_ex_i.valid;
+          pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
+        end
+        
+        BLT: begin
+          pc_redirect_d.valid = alu_lt && id_ex_i.valid;
+          pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
+        end
+        
+        BGE: begin
+          pc_redirect_d.valid = !alu_lt && id_ex_i.valid;
+          pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
+        end
+        
+        BLTU: begin
+          pc_redirect_d.valid = alu_ltu && id_ex_i.valid;
+          pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
+        end
+        
+        BGEU: begin
+          pc_redirect_d.valid = !alu_ltu && id_ex_i.valid;
+          pc_redirect_d.target = id_ex_i.pc + id_ex_i.imm;
+        end
+        
+        JAL: begin
+          pc_redirect_d.valid = id_ex_i.valid;
+          pc_redirect_d.target = alu_q;
+        end
+        
+        JALR: begin
+          pc_redirect_d.valid = id_ex_i.valid;
+          pc_redirect_d.target = alu_q;
+        end
+        default: pc_redirect_d = '0;
+      endcase
+    end
 
     ex_mem_d = ex_mem_q;
     if (ctrl_ex_i.flush_ex_mem) begin

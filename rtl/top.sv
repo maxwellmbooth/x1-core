@@ -1,6 +1,6 @@
 import common_pkg::*;
 
-module top (
+module top #(parameter string HEX_FILE = "../prog.hex") (
   input logic clk_i, rst_i
 );
   
@@ -36,7 +36,9 @@ module top (
   );
 
   // ROM instance
-  rom rom_inst (
+  rom #(
+    .HEX_FILE(HEX_FILE)
+  ) rom_inst (
     .clk_i(clk_i),
     .mem_req_valid_i(imem_req_valid),
     .mem_rsp_ready_i(imem_rsp_ready),
