@@ -1,7 +1,7 @@
 import common_pkg::*;
 
 module stage_mem (
-  input clk, rst,
+  input clk_i, rst_i,
   input ctrl_mem_t ctrl_mem_i,
   input ex_mem_t ex_mem_i,
   input mem_rsp_t dmem_rsp_i,
@@ -21,7 +21,7 @@ module stage_mem (
   
   // RAM instance
   ram ram_inst (
-    .clk_i(clk),
+    .clk_i(clk_i),
     .we_i(mem_we),
     .addr_i(ex_mem_i.alu_q),
     .data_i(data_in),
@@ -71,8 +71,8 @@ module stage_mem (
     end
   end
   
-  always_ff @(posedge clk or posedge rst) begin
-    if (rst) begin
+  always_ff @(posedge clk_i or posedge rst_i) begin
+    if (rst_i) begin
       mem_wb_q <= '0;
     end else begin
       mem_wb_q <= mem_wb_d;

@@ -16,6 +16,9 @@
 // INCLUDE MODULE CLASSES
 #include "Vtop___024root.h"
 #include "Vtop___024unit.h"
+#include "Vtop_common_pkg.h"
+
+// DPI TYPES for DPI Export callbacks (Internal use)
 
 // SYMS CLASS (contains all model state)
 class alignas(VL_CACHE_LINE_BYTES) Vtop__Syms final : public VerilatedSyms {
@@ -29,6 +32,28 @@ class alignas(VL_CACHE_LINE_BYTES) Vtop__Syms final : public VerilatedSyms {
 
     // MODULE INSTANCE STATE
     Vtop___024root                 TOP;
+    Vtop___024unit                 TOP____024unit;
+    Vtop_common_pkg                TOP__common_pkg;
+
+    // SCOPE NAMES
+    VerilatedScope* __Vscopep_TOP;
+    VerilatedScope* __Vscopep___024unit;
+    VerilatedScope* __Vscopep_common_pkg;
+    VerilatedScope* __Vscopep_top;
+    VerilatedScope* __Vscopep_top__core_inst;
+    VerilatedScope* __Vscopep_top__core_inst__regfile_inst;
+    VerilatedScope* __Vscopep_top__core_inst__regfile_inst__unnamedblk1;
+    VerilatedScope* __Vscopep_top__core_inst__stage_ex_inst;
+    VerilatedScope* __Vscopep_top__core_inst__stage_ex_inst__alu_inst;
+    VerilatedScope* __Vscopep_top__core_inst__stage_id_inst;
+    VerilatedScope* __Vscopep_top__core_inst__stage_id_inst__control_unit_inst;
+    VerilatedScope* __Vscopep_top__core_inst__stage_id_inst__control_unit_inst__decode_store_op;
+    VerilatedScope* __Vscopep_top__core_inst__stage_if_inst;
+    VerilatedScope* __Vscopep_top__core_inst__stage_if_inst__program_counter_inst;
+    VerilatedScope* __Vscopep_top__core_inst__stage_mem_inst;
+    VerilatedScope* __Vscopep_top__core_inst__stage_mem_inst__ram_inst;
+    VerilatedScope* __Vscopep_top__core_inst__stage_wb_inst;
+    VerilatedScope* __Vscopep_top__rom_inst;
 
     // CONSTRUCTORS
     Vtop__Syms(VerilatedContext* contextp, const char* namep, Vtop* modelp);

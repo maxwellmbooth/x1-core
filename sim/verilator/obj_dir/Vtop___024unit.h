@@ -17,6 +17,14 @@ class alignas(VL_CACHE_LINE_BYTES) Vtop___024unit final {
     Vtop__Syms* vlSymsp;
     const char* vlNamep;
 
+    // PARAMETERS
+    static constexpr IData/*31:0*/ ROM_ADDR_WIDTH = 0x00000010U;
+    static constexpr IData/*31:0*/ ROM_DATA_WIDTH = 0x00000020U;
+    static constexpr IData/*31:0*/ ROM_DEPTH = 0x00010000U;
+    static constexpr IData/*31:0*/ RAM_ADDR_WIDTH = 0x00000010U;
+    static constexpr IData/*31:0*/ RAM_DATA_WIDTH = 0x00000020U;
+    static constexpr IData/*31:0*/ RAM_DEPTH = 0x00010000U;
+
     // CONSTRUCTORS
     Vtop___024unit();
     ~Vtop___024unit();

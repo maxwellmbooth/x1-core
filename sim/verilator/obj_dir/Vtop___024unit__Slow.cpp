@@ -4,6 +4,15 @@
 
 #include "Vtop__pch.h"
 
+// Parameter definitions for Vtop___024unit
+constexpr IData/*31:0*/ Vtop___024unit::ROM_ADDR_WIDTH;
+constexpr IData/*31:0*/ Vtop___024unit::ROM_DATA_WIDTH;
+constexpr IData/*31:0*/ Vtop___024unit::ROM_DEPTH;
+constexpr IData/*31:0*/ Vtop___024unit::RAM_ADDR_WIDTH;
+constexpr IData/*31:0*/ Vtop___024unit::RAM_DATA_WIDTH;
+constexpr IData/*31:0*/ Vtop___024unit::RAM_DEPTH;
+
+
 void Vtop___024unit___ctor_var_reset(Vtop___024unit* vlSelf);
 
 Vtop___024unit::Vtop___024unit() = default;

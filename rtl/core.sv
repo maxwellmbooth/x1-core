@@ -91,8 +91,8 @@ module core (
   info_mem_t info_mem;
   
   stage_mem stage_mem_inst (
-    .clk(clk_i),
-    .rst(rst_i),
+    .clk_i(clk_i),
+    .rst_i(rst_i),
     .ctrl_mem_i(ctrl_mem),
     .ex_mem_i(ex_mem),
     .dmem_rsp_i(dmem_rsp_i),

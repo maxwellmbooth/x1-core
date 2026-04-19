@@ -22,6 +22,7 @@ VFLAGS = --cc \
          --build \
          --sv \
          --trace \
+	 --public-flat-rw \
          -I$(RTL_DIR) \
          -I$(RTL_DIR)/pkg \
          --top-module top \
@@ -41,6 +42,14 @@ run: $(OBJ_DIR)/Vtop
 # open waveform
 wave:
 	GDK_DPI_SCALE=1.5 gtkwave dump.vcd &
+
+# generate riscof
+riscof: $(OBJ_DIR)/Vtop
+	$(OBJ_DIR)/Vtop \
+		+HEX_FILE=$(HEX) \
+		--sig $(SIG) \
+		--sig-base $(SIG_BASE) \
+		--sig-end $(SIG_END)
 
 # delete build artifacts
 clean:

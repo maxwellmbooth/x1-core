@@ -4,6 +4,11 @@
 
 #include "Vtop__pch.h"
 
+// Parameter definitions for Vtop___024root
+const std::string Vtop___024root::top__DOT__HEX_FILE = "../prog.hex"s;
+const std::string Vtop___024root::top__DOT__rom_inst__DOT__HEX_FILE = "../prog.hex"s;
+
+
 void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf);
 
 Vtop___024root::Vtop___024root(Vtop__Syms* symsp, const char* namep)
