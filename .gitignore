@@ -24,9 +24,13 @@ docs/.obsidian
 # Sigasi
 .settings
 
-# Claude (All code is handwritten, claude used to generate changelogs)
+# Claude (All code is handwritten, Claude used to generate changelogs)
 .claude
 CLAUDE.md
+
+# Verilator
+sim/verilator/obj_dir
+*.vcd
 
 # Misc
 .DS_Store
