@@ -1,4 +1,4 @@
-import common_pkg::*;
+import mem_pkg::*;
 
 parameter int ROM_ADDR_WIDTH = 16;
 parameter int ROM_DATA_WIDTH = 32;

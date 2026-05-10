@@ -11,6 +11,9 @@ fpga/intel/quartus/.qsys_edit/
 *.rpt
 *.o
 
+# Questa
+sim/questa/rtl_work/
+
 # VS Code
 .vscode
 other/hexgen/.vscode
@@ -21,7 +24,7 @@ docs/.obsidian
 # Sigasi
 .settings
 
-# Claude
+# Claude (All code is handwritten, claude used to generate changelogs)
 .claude
 CLAUDE.md
 

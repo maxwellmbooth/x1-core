@@ -1,4 +1,4 @@
-import common_pkg::*;
+import core_pkg::*;
 
 module stage_mem (
   input clk_i, rst_i,

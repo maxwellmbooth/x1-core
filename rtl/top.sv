@@ -1,4 +1,4 @@
-import common_pkg::*;
+import core_pkg::*;
 
 module top #(parameter string HEX_FILE = "../prog.hex") (
   input logic clk_i, rst_i

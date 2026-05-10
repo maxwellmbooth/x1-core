@@ -2,7 +2,6 @@ parameter int RAM_ADDR_WIDTH = 16;
 parameter int RAM_DATA_WIDTH = 32;
 parameter int RAM_DEPTH = 1 << RAM_ADDR_WIDTH;
 
-
 module ram (
   input logic clk_i,
   input logic we_i,

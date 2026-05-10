@@ -1,4 +1,4 @@
-import common_pkg::*;
+import riscv_pkg::*;
 
 module regfile (
   input logic clk_i, rst_i,

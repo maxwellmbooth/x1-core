@@ -1,4 +1,4 @@
-import common_pkg::*;
+import core_pkg::*;
 
 module control_unit (
   input logic [6:0] opcode_i,

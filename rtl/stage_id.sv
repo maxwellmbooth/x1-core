@@ -1,4 +1,4 @@
-import common_pkg::*;
+import core_pkg::*;
 
 module stage_id (
   input logic clk_i, rst_i,

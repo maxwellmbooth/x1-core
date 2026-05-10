@@ -1,4 +1,4 @@
-import common_pkg::*;
+import riscv_pkg::*;
 
 module alu (
   input logic [XLEN-1:0] a_i,
