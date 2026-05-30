@@ -80,20 +80,19 @@ module stage_if (
   mem_req_t imem_req_d, imem_req_q;
 
   logic imem_req_valid_d, imem_req_valid_q;
-
   logic imem_req_inflight_d, imem_req_inflight_q;
   
   wire imem_req_has_space = !imem_req_inflight_q || imem_rsp_accepted;
-  wire imem_req_issue = (!imem_req_valid_q || imem_req_accepted) && imem_req_has_space && !ctrl_if_i.flush_if_id && !ctrl_if_i.stall_bubble_if_id && !ctrl_if_i.stall_hold_if_id;
+  wire imem_req_issue = (!imem_req_valid_q || imem_req_accepted) && imem_req_has_space && (!ctrl_if_i.flush_if_id && !ctrl_if_i.stall_bubble_if_id && !ctrl_if_i.stall_hold_if_id);
 
   assign info_if_o.imem_req_inflight = imem_req_inflight_q;
 
   always_comb begin
-    imem_req_valid_d = imem_req_accepted? 1'b0 : imem_req_valid_q; // will make invalid if already accepted or hold otherwise
+    imem_req_valid_d = imem_req_accepted? 1'b0 : imem_req_valid_q; // Will make invalid if already accepted or hold otherwise
     imem_req_d = imem_req_q;
     fetch_id_d = fetch_id_q;
 
-    if (imem_req_issue) begin // only issue new request if previous request accepted, no request inflight and stage is not stalled/flushed
+    if (imem_req_issue) begin // Only issue new request if previous request accepted, no request inflight and stage is not stalled/flushed
       imem_req_valid_d = 1'b1;
 
       imem_req_d.epoch = fetch_epoch_q;

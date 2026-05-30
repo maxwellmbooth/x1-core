@@ -26,3 +26,9 @@
 - [Changelog 22](changelog/changelog_22.md) — Added epoch/ID tracking to IMEM requests and DMEM skeleton
 - [Changelog 23](changelog/changelog_23.md) — Added ram_new.sv draft with request/response interface
 - [Changelog 24](changelog/changelog_24.md) — Fixed IMEM response handling and simplified PC module
+- [Changelog 25](changelog/changelog_25.md) — Minor port-width and ROM ready-signal fixes
+- [Changelog 26](changelog/changelog_26.md) — Removed stale IMEM inflight stall and fixed PC tracking in IF
+- [Changelog 27](changelog/changelog_27.md) — ALU/shift/load/store width fixes, redirect re-fire fix, Verilator support, jmptest
+- [Changelog 28](changelog/changelog_28.md) — Began RISCOF integration, widened RAM address space, signature dump in tb
+- [Changelog 29](changelog/changelog_29.md) — Split common_pkg.sv into riscv_pkg/mem_pkg/core_pkg, added memreqrsp test stub
+- [Changelog 30](changelog/changelog_30.md) — Removed cached IDE/Verilator artefacts and `other/` directory, gitignore additions

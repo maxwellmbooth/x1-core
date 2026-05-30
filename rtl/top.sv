@@ -28,10 +28,14 @@ module top #(parameter string HEX_FILE = "../prog.hex") (
     .imem_rsp_valid_i(imem_rsp_valid),
     .imem_req_ready_i(imem_req_ready),
     .imem_rsp_i(imem_rsp),
+    .dmem_rsp_valid_i(dmem_rsp_valid),
+    .dmem_req_ready_i(dmem_req_ready),
     .dmem_rsp_i(dmem_rsp),
     .imem_req_valid_o(imem_req_valid),
     .imem_rsp_ready_o(imem_rsp_ready),
     .imem_req_o(imem_req),
+    .dmem_req_valid_o(dmem_req_valid),
+    .dmem_rsp_ready_o(dmem_rsp_ready),
     .dmem_req_o(dmem_req)
   );
 

@@ -5,11 +5,15 @@ module core (
   input logic imem_rsp_valid_i,
   input logic imem_req_ready_i,
   input mem_rsp_t imem_rsp_i,
+  input logic dmem_rsp_valid_i,
+  input logic dmem_req_ready_i,
   input mem_rsp_t dmem_rsp_i,
 
   output logic imem_req_valid_o,
   output logic imem_rsp_ready_o,
   output mem_req_t imem_req_o,
+  output logic dmem_req_valid_o,
+  output logic dmem_rsp_ready_o,
   output mem_req_t dmem_req_o
 );
   
@@ -95,7 +99,11 @@ module core (
     .rst_i(rst_i),
     .ctrl_mem_i(ctrl_mem),
     .ex_mem_i(ex_mem),
+    .dmem_rsp_valid_i(dmem_rsp_valid_i),
+    .dmem_req_ready_i(dmem_req_ready_i),
     .dmem_rsp_i(dmem_rsp_i),
+    .dmem_req_valid_o(dmem_req_valid_o),
+    .dmem_rsp_ready_o(dmem_rsp_ready_o),
     .dmem_req_o(dmem_req_o),
     .info_mem_o(info_mem),
     .mem_wb_o(mem_wb)
