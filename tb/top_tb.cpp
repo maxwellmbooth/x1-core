@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
   if (sig_file) {
     FILE* f = fopen(sig_file, "w");
     for (uint32_t addr = sig_base; addr < sig_end; addr += 4) {
-      uint32_t word = top->rootp->top__DOT__core_inst__DOT__stage_mem_inst__DOT__ram_inst__DOT__mem[addr >> 2];
+      uint32_t word = top->rootp->top__DOT__ram_inst__DOT__mem[addr >> 2];
       fprintf(f, "%08x\n", word);
     }
     fclose(f);

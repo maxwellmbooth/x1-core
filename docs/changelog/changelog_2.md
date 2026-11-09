@@ -1,3 +1,3 @@
 # Changelog 2
 
-- Added README.md with project description
+- Docs: added README with project description

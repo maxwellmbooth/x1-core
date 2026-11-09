@@ -1,7 +1,6 @@
 # x1-core - A RISC-V RV32 SystemVerilog Core Design
 ## Overview:
-x1-core is an unprivileged RV32I core written in SystemVerilog using Sigasi SVH/VS-Code for design,
-Quartus for compilation and Questa for simulation (with upcoming support for Xilinx/Vivado).
+x1-core is an unprivileged RV32I core written in SystemVerilog using Sigasi SVH/VS-Code for design. Currently Questa and Verilator have been used and tested, with support for AMD-based and other tools coming later.
 
 ## Features:
 - Full RV32I implementation

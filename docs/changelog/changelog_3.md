@@ -1,3 +1,3 @@
 # Changelog 3
 
-- Updated .gitignore to exclude the commit batch script from version control
+- Build: kept the commit batch script out of version control

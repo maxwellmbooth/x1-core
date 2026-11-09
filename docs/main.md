@@ -32,3 +32,7 @@
 - [Changelog 28](changelog/changelog_28.md) — Began RISCOF integration, widened RAM address space, signature dump in tb
 - [Changelog 29](changelog/changelog_29.md) — Split common_pkg.sv into riscv_pkg/mem_pkg/core_pkg, added memreqrsp test stub
 - [Changelog 30](changelog/changelog_30.md) — Removed cached IDE/Verilator artefacts and `other/` directory, gitignore additions
+- [Changelog 31](changelog/changelog_31.md) — Reworked RAM/stage_mem onto the generic mem req/rsp interface, added DMEM valid/ready plumbing
+- [Changelog 32](changelog/changelog_32.md) — Whole-repo 4-space re-indent and per-stage ready_us/ready_ds ports for the new stall system
+- [Changelog 33](changelog/changelog_33.md) — Switched pipeline over to ready/valid stalls, moved forwarding into core.sv, added byte-enable stores
+- [Changelog 34](changelog/changelog_34.md) — RV32I correctness fixes across decode, loads, jumps, stalls and memory; DMEM connected in top; build fixes

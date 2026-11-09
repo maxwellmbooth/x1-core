@@ -1,0 +1,21 @@
+# Changelog 34
+
+- Bug fix: SRA/SRAI shifted in zeros instead of the sign bit
+- Bug fix: LBU/LHU were decoded from the wrong funct3 values
+- Bug fix: sub-word loads ignored the address offset, and LH sign-extended from the wrong bit
+- Bug fix: load data forwarded from MEM was always zero
+- Bug fix: JAL/JALR linked PC instead of PC+4
+- Bug fix: JALR could jump to an odd address
+- Bug fix: FENCE was not recognised; it now executes as a NOP
+- Bug fix: ID read a stale value when the register was being written back in the same cycle
+- Bug fix: instructions held in EX lost results that retired from WB during the stall
+- Bug fix: branches held in EX could redirect before the stall cleared
+- Bug fix: false load-use stall when the load targeted x0
+- Bug fix: a fetch accepted from a stale epoch advanced the PC
+- Bug fix: RAM was indexed by byte address instead of word address
+- Bug fix: RAM/ROM dropped responses under backpressure and had no reset for response valid
+- Integration: DMEM now instantiated in `top`, so loads and stores reach memory; signature dump updated to match
+- Build fix: package imports moved into module headers so compilation does not depend on file order or the removed `common_pkg`
+- Build fix: Quartus and Verilator source lists updated for the split packages
+- Cleanup: removed unused shamt path and info structs, merged the ALU decode functions
+- Cleanup: control unit assigns the full struct per opcode so no field can be left unset

@@ -1,3 +1,3 @@
 # Changelog 5
 
-- Updated README.md
+- Docs: README update

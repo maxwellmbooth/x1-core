@@ -1,15 +1,15 @@
-import core_pkg::*;
-
-module stage_id (
+module stage_id 
+    import riscv_pkg::*, core_pkg::*;
+(
     input logic clk_i, rst_i,
     input ctrl_id_t ctrl_id_i,
     input if_id_t if_id_i,
     input logic ready_ds_i,
     input logic [XLEN-1:0] rs1_data_i, rs2_data_i,
+    input logic [XLEN-1:0] rs1_data_fwd_i, rs2_data_fwd_i,
     
     output logic [4:0] rs1_addr_o, rs2_addr_o,
     output logic ready_us_o,
-    output info_id_t info_id_o,
     output id_ex_t id_ex_o
 );
 
@@ -49,29 +49,31 @@ module stage_id (
     );
     
     always_comb begin
-        info_id_o = '0;
-        if ((id_ex_q.ctrl_signals.load_op != LOAD_INVALID) && ((rs1_addr_o == id_ex_q.rd_addr) || (rs2_addr_o == id_ex_q.rd_addr)) && id_ex_q.valid) begin
-            info_id_o.load_use_hazard = 1'b1;
-            // fix to include check for x0 as rs1/rs2/rd and uses rs1/rs2
-        end
-        
         id_ex_d = id_ex_q;
-        if (ctrl_id_i.flush_id_ex) begin
-            id_ex_d = '0;
-        end else if (ctrl_id_i.stall_bubble_id_ex) begin
-            id_ex_d.valid = 1'b0;
-        end else if (!ctrl_id_i.stall_hold_id_ex) begin
-            id_ex_d.valid = if_id_i.valid;
-            id_ex_d.instr = if_id_i.instr;
-            id_ex_d.pc = if_id_i.pc;
-            id_ex_d.ctrl_signals = ctrl_signals;
-            id_ex_d.rs1_addr = rs1_addr_o;
-            id_ex_d.rs2_addr = rs2_addr_o;
-            id_ex_d.rs1_data = rs1_data_i;
-            id_ex_d.rs2_data = rs2_data_i;
-            id_ex_d.rd_addr = if_id_i.instr[11:7];
-            id_ex_d.shamt = if_id_i.instr[24:20];
-            id_ex_d.imm = imm_gen(if_id_i.instr, instr_type);
+        ready_us_o = 1'b1;
+        
+        if (ready_ds_i) begin
+            if (ctrl_id_i.flush_id_ex) begin
+                id_ex_d = '0;
+            end else if (ctrl_id_i.load_use_hazard && ready_ds_i) begin
+                id_ex_d.valid = 1'b0;
+                ready_us_o = 1'b0;
+            end else begin
+                id_ex_d.valid = if_id_i.valid;
+                id_ex_d.instr = if_id_i.instr;
+                id_ex_d.pc = if_id_i.pc;
+                id_ex_d.ctrl_signals = ctrl_signals;
+                id_ex_d.rs1_addr = rs1_addr_o;
+                id_ex_d.rs2_addr = rs2_addr_o;
+                id_ex_d.rs1_data = rs1_data_i;
+                id_ex_d.rs2_data = rs2_data_i;
+                id_ex_d.rd_addr = if_id_i.instr[11:7];
+                id_ex_d.imm = imm_gen(if_id_i.instr, instr_type);
+            end
+        end else begin
+            id_ex_d.rs1_data = rs1_data_fwd_i; // forward to ex from wb in case of cycle hold but wb progression
+            id_ex_d.rs2_data = rs2_data_fwd_i;
+            ready_us_o = 1'b0;
         end
     end
     

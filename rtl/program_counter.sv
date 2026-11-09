@@ -1,6 +1,6 @@
-import common_pkg::*;
-
-module program_counter (
+module program_counter 
+    import riscv_pkg::*;
+(
     input logic clk_i, rst_i,
     input logic pc_we_i,
     input logic [XLEN-1:0] pc_next_i,

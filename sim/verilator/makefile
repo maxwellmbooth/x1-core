@@ -2,7 +2,9 @@ RTL_DIR = ../../rtl
 TB_DIR  = ../../tb
 OBJ_DIR = obj_dir
 
-SRCS = $(RTL_DIR)/pkg/common_pkg.sv \
+SRCS = $(RTL_DIR)/pkg/riscv_pkg.sv \
+       $(RTL_DIR)/pkg/mem_pkg.sv \
+       $(RTL_DIR)/pkg/core_pkg.sv \
        $(RTL_DIR)/alu.sv \
        $(RTL_DIR)/control_unit.sv \
        $(RTL_DIR)/program_counter.sv \

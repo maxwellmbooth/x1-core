@@ -1,6 +1,6 @@
-import riscv_pkg::*;
-
-module alu (
+module alu  
+    import riscv_pkg::*;
+(
     input logic [XLEN-1:0] a_i,
     input logic [XLEN-1:0] b_i,
     input alu_op_t op_i,
@@ -22,7 +22,7 @@ module alu (
             ALU_SLTU: q_o = ltu_o? 'd1 : 'd0;
             ALU_SLL: q_o = a_i << b_i[4:0];
             ALU_SRL: q_o = a_i >> b_i[4:0];
-            ALU_SRA: q_o = a_i >>> b_i[4:0];
+            ALU_SRA: q_o = $signed(a_i) >>> b_i[4:0];
             ALU_OR: q_o = a_i | b_i;
             ALU_XOR: q_o = a_i ^ b_i;
             ALU_AND: q_o = a_i & b_i;

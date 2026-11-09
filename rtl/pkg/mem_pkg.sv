@@ -1,10 +1,13 @@
 package mem_pkg;
+    import riscv_pkg::*;
+    
     // STRUCTS
     // Memory request
     typedef struct packed {
         logic [3:0] epoch;
         logic [3:0] id;
         logic we;
+        logic [3:0] be; 
         logic [31:0] addr;
         logic [XLEN-1:0] wdata;
     } mem_req_t;

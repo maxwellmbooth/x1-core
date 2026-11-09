@@ -1,6 +1,6 @@
-import core_pkg::*;
-
-module top #(parameter string HEX_FILE = "../prog.hex") (
+module top
+    import mem_pkg::*;
+#(parameter string HEX_FILE = "../prog.hex") (
     input logic clk_i, rst_i
 );
     
@@ -45,6 +45,7 @@ module top #(parameter string HEX_FILE = "../prog.hex") (
         .HEX_FILE(HEX_FILE)
     ) rom_inst (
         .clk_i(clk_i),
+        .rst_i(rst_i),
         .mem_req_valid_i(imem_req_valid),
         .mem_rsp_ready_i(imem_rsp_ready),
         .mem_req_i(imem_req),
@@ -54,10 +55,15 @@ module top #(parameter string HEX_FILE = "../prog.hex") (
     );
 
     // RAM instance
-    // ram ram_inst (
-    //   .clk_i(clk_i),
-    //   .mem_req_i(dmem_req),
-    //   .mem_rsp_o(dmem_rsp)
-    // );
+    ram ram_inst (
+        .clk_i(clk_i),
+        .rst_i(rst_i),
+        .mem_req_valid_i(dmem_req_valid),
+        .mem_rsp_ready_i(dmem_rsp_ready),
+        .mem_req_i(dmem_req),
+        .mem_rsp_valid_o(dmem_rsp_valid),
+        .mem_req_ready_o(dmem_req_ready),
+        .mem_rsp_o(dmem_rsp)
+    );
 
 endmodule

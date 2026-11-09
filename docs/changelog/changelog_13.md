@@ -1,6 +1,5 @@
 # Changelog 13
 
-- Created `rtl/pkg/common_pkg.sv` as the new home for all shared types, enums, and structs (replacing the deleted file from the previous commit)
-- Added Sigasi IDE project configuration files for SystemVerilog linting and navigation
-- Added VS Code workspace settings
-- Restored the hexgen Python scripts (had been accidentally excluded in a prior .gitignore change)
+- Refactor: shared types now live in `rtl/pkg/common_pkg.sv`
+- Tooling: added Sigasi and VS Code configuration for linting and navigation
+- Build fix: restored hexgen scripts lost to an earlier .gitignore change

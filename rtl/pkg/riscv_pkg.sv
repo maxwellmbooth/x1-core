@@ -1,12 +1,13 @@
 package riscv_pkg;
     // PARAMETERS
-    parameter int XLEN = 32;
-    parameter logic [XLEN-1:0] PC_RESET = 32'd0;
+    localparam int XLEN = 32;
+    localparam logic [XLEN-1:0] PC_RESET = '0;
 
     // ENUMS
     // RV32I opcodes
     typedef enum logic[6:0] {
         OP_LOAD = 7'b0000011,
+        OP_MISC_MEM = 7'b0001111,
         OP_STORE = 7'b0100011,
         OP_ALU_IMM = 7'b0010011,
         OP_ALU = 7'b0110011,
@@ -74,4 +75,22 @@ package riscv_pkg;
         LOAD_HALFU,
         LOAD_WORD
     } load_op_t;
+
+    // FUNCTIONS
+    // Determine which bits to load based on load instruction and offset
+    function automatic logic [XLEN-1:0] load_format (
+        input logic [XLEN-1:0] rdata,
+        input logic [1:0] offset,
+        input load_op_t op
+    );
+        logic [7:0] byte_lane_data = rdata[offset*8 +: 8];
+        logic [15:0] half_lane_data = offset[1] ? rdata[31:16] : rdata[15:0];
+        unique case (op)
+            LOAD_BYTE: return {{24{byte_lane_data[7]}},  byte_lane_data};
+            LOAD_BYTEU: return {24'd0,byte_lane_data};
+            LOAD_HALF: return {{16{half_lane_data[15]}}, half_lane_data};
+            LOAD_HALFU: return {16'd0, half_lane_data};
+            default: return rdata;
+        endcase
+    endfunction
 endpackage

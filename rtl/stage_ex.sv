@@ -1,10 +1,11 @@
-import core_pkg::*;
-
-module stage_ex (
+module stage_ex 
+    import riscv_pkg::*, core_pkg::*;
+(
     input logic clk_i, rst_i,
     input ctrl_ex_t ctrl_ex_i,
     input id_ex_t id_ex_i,
     input logic ready_ds_i,
+    input logic [XLEN-1:0] rs1_data_fwd_i, rs2_data_fwd_i,
     
     output pc_redirect_t pc_redirect_o,
     output logic ready_us_o,
@@ -27,45 +28,26 @@ module stage_ex (
         .lt_o(alu_lt),
         .ltu_o(alu_ltu)
     );
-    
-    logic [XLEN-1:0] rs1_data, rs2_data;
 
     always_comb begin
-        // Data forwarding from MEM/WB for rs1/rs2
-        if (ctrl_ex_i.rd_addr_mem_fwd == id_ex_i.rs1_addr && ctrl_ex_i.mem_valid) begin
-            rs1_data = ctrl_ex_i.rd_data_mem_fwd;
-        end else if (ctrl_ex_i.rd_addr_wb_fwd == id_ex_i.rs1_addr && ctrl_ex_i.wb_valid) begin
-            rs1_data = ctrl_ex_i.rd_data_wb_fwd;
-        end else begin 
-            rs1_data = id_ex_i.rs1_data;
-        end
-        
-        if (ctrl_ex_i.rd_addr_mem_fwd == id_ex_i.rs2_addr && ctrl_ex_i.mem_valid) begin
-            rs2_data = ctrl_ex_i.rd_data_mem_fwd;
-        end else if (ctrl_ex_i.rd_addr_wb_fwd == id_ex_i.rs2_addr && ctrl_ex_i.wb_valid) begin
-            rs2_data = ctrl_ex_i.rd_data_wb_fwd;
-        end else begin 
-            rs2_data = id_ex_i.rs2_data;
-        end
 
         // ALU A input selection
         unique case (id_ex_i.ctrl_signals.alu_a_sel)
-            ALU_A_SEL_RS1: alu_a = rs1_data;
+            ALU_A_SEL_RS1: alu_a = rs1_data_fwd_i;
             ALU_A_SEL_PC: alu_a = id_ex_i.pc;
-            default: alu_a = rs1_data;
+            default: alu_a = rs1_data_fwd_i;
         endcase
         
         // ALU B input selection 
         unique case (id_ex_i.ctrl_signals.alu_b_sel)
-            ALU_B_SEL_RS2: alu_b = rs2_data;
+            ALU_B_SEL_RS2: alu_b = rs2_data_fwd_i;
             ALU_B_SEL_IMM: alu_b = id_ex_i.imm;
-            ALU_B_SEL_SHAMT: alu_b = {27'd0, id_ex_i.shamt};
-            default: alu_b = rs2_data;
+            default: alu_b = rs2_data_fwd_i;
         endcase
         
         // Branch redirect selection
-        if (pc_redirect_q.valid) begin
-            pc_redirect_d.valid = 1'b0; // prevent next redirect from happening if branch taken
+        if (pc_redirect_q.valid || !ready_ds_i) begin
+            pc_redirect_d = '0; // prevent wrong path redirect and redirect whilst branch held in ex
         end else begin
             unique case (id_ex_i.ctrl_signals.branch_op)
                 BRANCH_INVALID: begin
@@ -109,24 +91,30 @@ module stage_ex (
                 
                 JALR: begin
                     pc_redirect_d.valid = id_ex_i.valid;
-                    pc_redirect_d.target = alu_q;
+                    pc_redirect_d.target = {alu_q[XLEN-1:1], 1'b0}; // mask with ~1 to avoid odd PC writes
                 end
                 default: pc_redirect_d = '0;
             endcase
         end
 
         ex_mem_d = ex_mem_q;
-        if (ctrl_ex_i.flush_ex_mem) begin
-            ex_mem_d.valid = '0;
+        ready_us_o = 1'b1;
+
+        if (ready_ds_i) begin
+            if (ctrl_ex_i.flush_ex_mem) begin
+                ex_mem_d.valid = '0;
+            end else begin
+                ex_mem_d.valid = id_ex_i.valid;
+                ex_mem_d.instr = id_ex_i.instr;
+                ex_mem_d.pc = id_ex_i.pc;
+                ex_mem_d.ctrl_signals = id_ex_i.ctrl_signals;
+                ex_mem_d.rs2_data = rs2_data_fwd_i;
+                ex_mem_d.rd_addr = id_ex_i.rd_addr;
+                ex_mem_d.imm = id_ex_i.imm;
+                ex_mem_d.alu_q = alu_q;
+            end
         end else begin
-            ex_mem_d.valid = id_ex_i.valid;
-            ex_mem_d.instr = id_ex_i.instr;
-            ex_mem_d.pc = id_ex_i.pc;
-            ex_mem_d.ctrl_signals = id_ex_i.ctrl_signals;
-            ex_mem_d.rs2_data = rs2_data;
-            ex_mem_d.rd_addr = id_ex_i.rd_addr;
-            ex_mem_d.imm = id_ex_i.imm;
-            ex_mem_d.alu_q = alu_q;
+            ready_us_o = 1'b0;
         end
     end
     
@@ -135,7 +123,7 @@ module stage_ex (
             ex_mem_q <= '0;
             pc_redirect_q <= '0;
         end else begin
-            pc_redirect_q = pc_redirect_d;
+            pc_redirect_q <= pc_redirect_d;
             ex_mem_q <= ex_mem_d;
         end
     end

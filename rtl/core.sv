@@ -1,6 +1,6 @@
-import core_pkg::*;
-
-module core (
+module core 
+    import riscv_pkg::*, mem_pkg::*, core_pkg::*;
+(
     input logic clk_i, rst_i,
     input logic imem_rsp_valid_i,
     input logic imem_req_ready_i,
@@ -31,8 +31,8 @@ module core (
         .rd_addr_i(rd_addr),
         .rd_data_i(rd_data),
         .rd_we_i(rd_we),
-        .rs1_data(rs1_data),
-        .rs2_data(rs2_data)
+        .rs1_data_o(rs1_data),
+        .rs2_data_o(rs2_data)
     );
     
     // PC branch redirect info
@@ -41,7 +41,6 @@ module core (
     // IF stage instance
     if_id_t if_id;
     ctrl_if_t ctrl_if;
-    info_if_t info_if;
     logic id_ready_us;
  
     stage_if stage_if_inst (
@@ -56,15 +55,15 @@ module core (
         .imem_req_valid_o(imem_req_valid_o),
         .imem_rsp_ready_o(imem_rsp_ready_o),
         .imem_req_o(imem_req_o),
-        .info_if_o(info_if),
         .if_id_o(if_id)
     );
     
     // ID stage instance
     id_ex_t id_ex;
     ctrl_id_t ctrl_id;
-    info_id_t info_id;
     logic ex_ready_us;
+
+    logic [XLEN-1:0] rs1_data_fwd, rs2_data_fwd;
 
     stage_id stage_id_inst (
         .clk_i(clk_i),
@@ -74,10 +73,11 @@ module core (
         .ready_ds_i(ex_ready_us),
         .rs1_data_i(rs1_data),
         .rs2_data_i(rs2_data),
+        .rs1_data_fwd_i(rs1_data_fwd),
+        .rs2_data_fwd_i(rs2_data_fwd),
         .rs1_addr_o(rs1_addr),
         .rs2_addr_o(rs2_addr),
         .ready_us_o(id_ready_us),
-        .info_id_o(info_id),
         .id_ex_o(id_ex)
     );
 
@@ -92,6 +92,8 @@ module core (
         .ctrl_ex_i(ctrl_ex),
         .id_ex_i(id_ex),
         .ready_ds_i(mem_ready_us),
+        .rs1_data_fwd_i(rs1_data_fwd),
+        .rs2_data_fwd_i(rs2_data_fwd),
         .pc_redirect_o(pc_redirect),
         .ready_us_o(ex_ready_us),
         .ex_mem_o(ex_mem)
@@ -121,8 +123,6 @@ module core (
     );
     
     // WB stage instance
-    info_wb_t info_wb;
-
     stage_wb stage_wb_inst (
         .clk(clk_i),
         .rst(rst_i),
@@ -130,42 +130,51 @@ module core (
         .rd_addr_o(rd_addr),
         .rd_data_o(rd_data),
         .rd_we_o(rd_we),
-        .ready_us_o(wb_ready_us),
-        .info_wb_o(info_wb)
+        .ready_us_o(wb_ready_us)
     );
-    
-    // Control logic
-    assign ctrl_ex.rd_addr_mem_fwd = info_mem.rd_addr_fwd;
-    assign ctrl_ex.rd_data_mem_fwd = info_mem.rd_data_fwd;
-    assign ctrl_ex.mem_valid = info_mem.valid;
 
-    assign ctrl_ex.rd_addr_wb_fwd = rd_addr;
-    assign ctrl_ex.rd_data_wb_fwd = rd_data;
-    assign ctrl_ex.wb_valid = info_wb.valid;
+    // Load-use hazard
+    always_comb begin
+        ctrl_id.load_use_hazard = 1'b0;
+        if (id_ex.valid && id_ex.ctrl_signals.mem_re && ((rs1_addr == id_ex.rd_addr) || (rs2_addr == id_ex.rd_addr)) && (id_ex.rd_addr != 5'd0)) begin
+            ctrl_id.load_use_hazard = 1'b1;
+        end
+    end
 
+    // Data forwarding
+    wire mem_fwd_valid = info_mem.valid && (info_mem.rd_addr_fwd != 5'd0);
+    wire wb_fwd_valid = rd_we && (rd_addr != 5'd0);
+
+    always_comb begin
+        // Data forwarding from MEM/WB for rs1/rs2
+        if (info_mem.rd_addr_fwd == id_ex.rs1_addr && mem_fwd_valid) begin
+            rs1_data_fwd = info_mem.rd_data_fwd;
+        end else if (rd_addr == id_ex.rs1_addr && wb_fwd_valid) begin
+            rs1_data_fwd = rd_data;
+        end else begin 
+            rs1_data_fwd = id_ex.rs1_data;
+        end
+        
+        if (info_mem.rd_addr_fwd == id_ex.rs2_addr && mem_fwd_valid) begin
+            rs2_data_fwd = info_mem.rd_data_fwd;
+        end else if (rd_addr == id_ex.rs2_addr && wb_fwd_valid) begin
+            rs2_data_fwd = rd_data;
+        end else begin
+            rs2_data_fwd = id_ex.rs2_data;
+        end
+    end
+
+    // Flush on PC redirect
     always_comb begin
         ctrl_if.flush_if_id = 1'b0;
         ctrl_id.flush_id_ex = 1'b0;
         ctrl_ex.flush_ex_mem = 1'b0;
         ctrl_mem.flush_mem_wb = 1'b0;
 
-        ctrl_if.stall_bubble_if_id = 1'b0;
-        ctrl_id.stall_bubble_id_ex = 1'b0;
-
-        ctrl_if.stall_hold_pc = 1'b0;
-        ctrl_if.stall_hold_if_id = 1'b0;
-        ctrl_id.stall_hold_id_ex = 1'b0;
-
         if (pc_redirect.valid) begin
             ctrl_if.flush_if_id = 1'b1;
             ctrl_id.flush_id_ex = 1'b1;
             ctrl_ex.flush_ex_mem = 1'b1;
-        end
-
-        if (info_id.load_use_hazard) begin
-            ctrl_id.stall_bubble_id_ex = 1'b1;
-            ctrl_if.stall_hold_pc = 1'b1;
-            ctrl_if.stall_hold_if_id = 1'b1;
         end
     end
     
