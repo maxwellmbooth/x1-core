@@ -37,3 +37,4 @@ sim/verilator/obj_dir
 other
 compush.bat
 compush.sh
+.archive
